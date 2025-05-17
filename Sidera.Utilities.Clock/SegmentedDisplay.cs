@@ -86,6 +86,49 @@ namespace Sidera.Utilities.Clock
             }
         }
 
+        public int SegmentWeight
+        {
+            get
+            {
+                try
+                {
+                    return Digits[0].SegmentWeight;
+                }
+                catch
+                {
+                    return -1;
+                }
+            }
+        }
+
+        public Size DigitSize
+        {
+            get
+            {
+                try
+                {
+                    return Digits[0].Size;
+                }
+                catch
+                {
+                    return default;
+                }
+            }
+        }
+
+        public void SetSegmentedDigitProperties(int weight, Size size)
+        {
+            
+            fpnlDisplay.SuspendLayout();
+
+            foreach (var digit in Digits)
+            {
+                digit.SetProperties(weight, size);
+            }
+
+            fpnlDisplay.ResumeLayout();
+        }
+
         private void fpnlDisplay_Paint(object sender, PaintEventArgs e)
         {
             Pen penBlack, penWhite;

@@ -17,6 +17,7 @@ namespace Sidera.Utilities.Clock
         private Dictionary<Panel, bool> _segments;
         private Color _fgcolor0, _fgcolor1;
         private char _value;
+        private int _weight;
 
         public SegmentedDigit()
         {
@@ -46,6 +47,7 @@ namespace Sidera.Utilities.Clock
             OffColor = Color.Black;
             OnColor = Color.Lime;
             Value = " ";
+            SegmentWeight = 10;
         }
 
         private void RefreshSegments()
@@ -104,6 +106,63 @@ namespace Sidera.Utilities.Clock
 
                     throw new ArgumentException($"Invalid character {value}. Value must be from the set {{{fArr}}}.");
                 }
+            }
+        }
+
+        public int SegmentWeight
+        {
+            get { return _weight; }
+            private set
+            {
+                _weight = value;
+
+                SetSegmentSizes();
+            }
+        }
+
+        public void SetProperties(int weight, Size size)
+        {
+            tpnlGrid.SuspendLayout();
+
+            Size = size;
+            SegmentWeight = weight;
+
+            tpnlGrid.ResumeLayout();
+        }
+
+        private void SetSegmentSizes()
+        {
+            //MessageBox.Show(string.Join("\n", _segments.ToArray().Select(kvp => string.Join(" : ", kvp.Key.Name, kvp.Key.Size))));
+
+            foreach (var segment in _segments)
+            {
+                Panel pnlSegment = segment.Key;
+
+                //if (pnlSegment != pnlH2)
+                //    continue;
+
+                Size size;
+                string name = pnlSegment.Name;
+                char cOrientation = name[3];
+                switch (cOrientation)
+                {
+                    case 'H':
+                        size = new Size(0, _weight);
+                        break;
+                    case 'V':
+                        size = new Size(_weight, 0);
+                        break;
+                    default:
+                        size = new Size(_weight, _weight);
+                        break;
+                }
+
+                pnlSegment.MinimumSize
+                    = pnlSegment.MaximumSize = size;
+
+                pnlSegment.Size = size;
+
+                pnlSegment.Invalidate();
             }
         }
 

@@ -51,7 +51,7 @@
             this.pnlH1.MaximumSize = new System.Drawing.Size(0, 15);
             this.pnlH1.MinimumSize = new System.Drawing.Size(0, 15);
             this.pnlH1.Name = "pnlH1";
-            this.pnlH1.Size = new System.Drawing.Size(45, 15);
+            this.pnlH1.Size = new System.Drawing.Size(19, 15);
             this.pnlH1.TabIndex = 0;
             // 
             // pnlV1
@@ -64,27 +64,27 @@
             this.pnlV1.MinimumSize = new System.Drawing.Size(15, 0);
             this.pnlV1.Name = "pnlV1";
             this.tpnlGrid.SetRowSpan(this.pnlV1, 3);
-            this.pnlV1.Size = new System.Drawing.Size(15, 49);
+            this.pnlV1.Size = new System.Drawing.Size(15, 27);
             this.pnlV1.TabIndex = 2;
             // 
             // pnlV2
             // 
             this.pnlV2.BackColor = System.Drawing.Color.Red;
             this.pnlV2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlV2.Location = new System.Drawing.Point(60, 15);
+            this.pnlV2.Location = new System.Drawing.Point(34, 15);
             this.pnlV2.Margin = new System.Windows.Forms.Padding(0);
             this.pnlV2.MaximumSize = new System.Drawing.Size(15, 0);
             this.pnlV2.MinimumSize = new System.Drawing.Size(15, 0);
             this.pnlV2.Name = "pnlV2";
             this.tpnlGrid.SetRowSpan(this.pnlV2, 3);
-            this.pnlV2.Size = new System.Drawing.Size(15, 49);
+            this.pnlV2.Size = new System.Drawing.Size(15, 27);
             this.pnlV2.TabIndex = 3;
             // 
             // pnlX1
             // 
             this.pnlX1.BackColor = System.Drawing.Color.Red;
             this.pnlX1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlX1.Location = new System.Drawing.Point(30, 32);
+            this.pnlX1.Location = new System.Drawing.Point(17, 21);
             this.pnlX1.Margin = new System.Windows.Forms.Padding(0);
             this.pnlX1.MaximumSize = new System.Drawing.Size(15, 15);
             this.pnlX1.MinimumSize = new System.Drawing.Size(15, 15);
@@ -97,45 +97,45 @@
             this.pnlH2.BackColor = System.Drawing.Color.Red;
             this.tpnlGrid.SetColumnSpan(this.pnlH2, 3);
             this.pnlH2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlH2.Location = new System.Drawing.Point(15, 64);
+            this.pnlH2.Location = new System.Drawing.Point(15, 42);
             this.pnlH2.Margin = new System.Windows.Forms.Padding(0);
             this.pnlH2.MaximumSize = new System.Drawing.Size(0, 15);
             this.pnlH2.MinimumSize = new System.Drawing.Size(0, 15);
             this.pnlH2.Name = "pnlH2";
-            this.pnlH2.Size = new System.Drawing.Size(45, 15);
+            this.pnlH2.Size = new System.Drawing.Size(19, 15);
             this.pnlH2.TabIndex = 1;
             // 
             // pnlV3
             // 
             this.pnlV3.BackColor = System.Drawing.Color.Red;
             this.pnlV3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlV3.Location = new System.Drawing.Point(0, 79);
+            this.pnlV3.Location = new System.Drawing.Point(0, 57);
             this.pnlV3.Margin = new System.Windows.Forms.Padding(0);
             this.pnlV3.MaximumSize = new System.Drawing.Size(15, 0);
             this.pnlV3.MinimumSize = new System.Drawing.Size(15, 0);
             this.pnlV3.Name = "pnlV3";
             this.tpnlGrid.SetRowSpan(this.pnlV3, 3);
-            this.pnlV3.Size = new System.Drawing.Size(15, 49);
+            this.pnlV3.Size = new System.Drawing.Size(15, 27);
             this.pnlV3.TabIndex = 4;
             // 
             // pnlV4
             // 
             this.pnlV4.BackColor = System.Drawing.Color.Red;
             this.pnlV4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlV4.Location = new System.Drawing.Point(60, 79);
+            this.pnlV4.Location = new System.Drawing.Point(34, 57);
             this.pnlV4.Margin = new System.Windows.Forms.Padding(0);
             this.pnlV4.MaximumSize = new System.Drawing.Size(15, 0);
             this.pnlV4.MinimumSize = new System.Drawing.Size(15, 0);
             this.pnlV4.Name = "pnlV4";
             this.tpnlGrid.SetRowSpan(this.pnlV4, 3);
-            this.pnlV4.Size = new System.Drawing.Size(15, 49);
+            this.pnlV4.Size = new System.Drawing.Size(15, 27);
             this.pnlV4.TabIndex = 5;
             // 
             // pnlX2
             // 
             this.pnlX2.BackColor = System.Drawing.Color.Red;
             this.pnlX2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlX2.Location = new System.Drawing.Point(30, 96);
+            this.pnlX2.Location = new System.Drawing.Point(17, 63);
             this.pnlX2.Margin = new System.Windows.Forms.Padding(0);
             this.pnlX2.MaximumSize = new System.Drawing.Size(15, 15);
             this.pnlX2.MinimumSize = new System.Drawing.Size(15, 15);
@@ -148,12 +148,12 @@
             this.pnlH3.BackColor = System.Drawing.Color.Red;
             this.tpnlGrid.SetColumnSpan(this.pnlH3, 3);
             this.pnlH3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlH3.Location = new System.Drawing.Point(15, 128);
+            this.pnlH3.Location = new System.Drawing.Point(15, 84);
             this.pnlH3.Margin = new System.Windows.Forms.Padding(0);
             this.pnlH3.MaximumSize = new System.Drawing.Size(0, 15);
             this.pnlH3.MinimumSize = new System.Drawing.Size(0, 15);
             this.pnlH3.Name = "pnlH3";
-            this.pnlH3.Size = new System.Drawing.Size(45, 15);
+            this.pnlH3.Size = new System.Drawing.Size(19, 15);
             this.pnlH3.TabIndex = 6;
             // 
             // tpnlGrid
@@ -186,7 +186,7 @@
             this.tpnlGrid.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tpnlGrid.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tpnlGrid.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tpnlGrid.Size = new System.Drawing.Size(75, 145);
+            this.tpnlGrid.Size = new System.Drawing.Size(50, 100);
             this.tpnlGrid.TabIndex = 0;
             // 
             // SegmentedDigit
@@ -195,7 +195,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tpnlGrid);
             this.Name = "SegmentedDigit";
-            this.Size = new System.Drawing.Size(75, 145);
+            this.Size = new System.Drawing.Size(50, 100);
             this.BackColorChanged += new System.EventHandler(this.SegmentedDigit_BackColorChanged);
             this.tpnlGrid.ResumeLayout(false);
             this.ResumeLayout(false);

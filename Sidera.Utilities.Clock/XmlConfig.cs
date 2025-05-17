@@ -358,8 +358,13 @@ namespace Sidera.Utilities.Clock
 
         public void Save()
         {
+            FileInfo fiConfig = new FileInfo(_filename);
+            fiConfig.Directory.Create();
+
+            //
+
             string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            _xdoc.DocumentElement.SetAttribute("version", version);
+            //_xdoc.DocumentElement.SetAttribute("version", version);
 
             _xdoc.Save(_filename);
         }

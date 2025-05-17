@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace Sidera.Utilities.Clock
 {
@@ -17,9 +18,20 @@ namespace Sidera.Utilities.Clock
         private const string _ILLEGAL_CHARS = @"\/:*?""<>|";
         private XmlConfig _xconfig;
 
+        private string _name;
+
         public ThemeConfig(string name)
         {
-            if (string.IsNullOrWhiteSpace(name))
+            _name = name;
+
+            //
+
+            FileInfo fiConfig = new FileInfo(Filename);
+            fiConfig.Directory.Create();
+
+            //
+
+            if (string.IsNullOrWhiteSpace(_name))
             {
                 throw new ArgumentException($"File name cannot be null, empty, or white-space.");
             }
@@ -37,19 +49,12 @@ namespace Sidera.Utilities.Clock
 
             //
 
-            FileInfo fiExe = new FileInfo(Assembly.GetExecutingAssembly().Location);
-
-            string exeDir, exeName, cfgFilename;
-            exeDir = fiExe.DirectoryName;
-            exeName = Path.GetFileNameWithoutExtension(fiExe.FullName);
-
-            string themesDir = Path.Combine(exeDir, "themes");
-            cfgFilename = Path.Combine(themesDir, $"{name}.xml");
-            Directory.CreateDirectory(themesDir);
-            _xconfig = new XmlConfig(cfgFilename, "configuration")
+            _xconfig = new XmlConfig(Filename, "configuration")
             {
                 AutoSave = true,
             };
+
+            _xconfig.InitializeDocument();
 
             //
 
@@ -58,6 +63,30 @@ namespace Sidera.Utilities.Clock
                 _xconfig.Save();
             }
         }
+
+        #region Config properties
+        public string Filename
+        {
+            get
+            {
+                FileInfo fiExe = new FileInfo(Assembly.GetExecutingAssembly().Location);
+
+                string pgmFilesDir, pgmFilesX86Dir, appDataDir, exeDir, exeName, cfgFilename;
+                pgmFilesDir = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+                pgmFilesX86Dir = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
+                appDataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Sidera", "Clock");
+                exeDir = fiExe.DirectoryName;
+                exeName = Path.GetFileNameWithoutExtension(fiExe.FullName);
+
+                string themesDir = Path.Combine(exeDir.ToUpper().StartsWith(pgmFilesDir.ToUpper()) || exeDir.ToUpper().StartsWith(pgmFilesX86Dir.ToUpper()) ? appDataDir : exeDir,
+                    "themes");
+
+                cfgFilename = Path.Combine(themesDir, $"{_name}.xml");
+
+                return cfgFilename;
+            }
+        }
+        #endregion
 
         #region Appearance
         public Color BezelColor

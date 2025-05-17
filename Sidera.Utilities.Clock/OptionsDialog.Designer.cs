@@ -62,16 +62,21 @@
             this.cbxBehavior_Anchoring_Monitor = new System.Windows.Forms.ComboBox();
             this.chkBehavior_Anchoring_Lock = new System.Windows.Forms.CheckBox();
             this.chkBehavior_Anchoring_AlwaysOnTop = new System.Windows.Forms.CheckBox();
+            this.chkBehavior_Anchoring_MiniClock = new System.Windows.Forms.CheckBox();
             this.tabHelp = new System.Windows.Forms.TabPage();
             this.tpnlHelp = new System.Windows.Forms.TableLayoutPanel();
             this.btnHelp_Docs = new System.Windows.Forms.Button();
             this.btnHelp_About = new System.Windows.Forms.Button();
             this.pnlAppearance_Sample = new System.Windows.Forms.Panel();
+            this.clkAppearance_Sample = new Sidera.Utilities.Clock.ClockControl();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnApply = new System.Windows.Forms.Button();
             this.tpnlLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.clkApperance_Sample = new Sidera.Utilities.Clock.ClockControl();
+            this.fpnlBehavior_Display = new System.Windows.Forms.FlowLayoutPanel();
+            this.grpBehavior_Miscellaneous = new System.Windows.Forms.GroupBox();
+            this.fpnlBehavior_Miscellaneous = new System.Windows.Forms.FlowLayoutPanel();
+            this.chkBehavior_Miscellaneous_AutoStart = new System.Windows.Forms.CheckBox();
             this.tcpnlTabs.SuspendLayout();
             this.tabAppearance.SuspendLayout();
             this.tpnlAppearance.SuspendLayout();
@@ -88,6 +93,9 @@
             this.tpnlHelp.SuspendLayout();
             this.pnlAppearance_Sample.SuspendLayout();
             this.tpnlLayout.SuspendLayout();
+            this.fpnlBehavior_Display.SuspendLayout();
+            this.grpBehavior_Miscellaneous.SuspendLayout();
+            this.fpnlBehavior_Miscellaneous.SuspendLayout();
             this.SuspendLayout();
             // 
             // tcpnlTabs
@@ -318,26 +326,25 @@
             this.tpnlBehavior.ColumnCount = 2;
             this.tpnlBehavior.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tpnlBehavior.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tpnlBehavior.Controls.Add(this.grpBehavior_Miscellaneous, 0, 1);
             this.tpnlBehavior.Controls.Add(this.grpBehavior_Display, 0, 0);
             this.tpnlBehavior.Controls.Add(this.grpBehavior_Anchoring, 1, 0);
             this.tpnlBehavior.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tpnlBehavior.Location = new System.Drawing.Point(0, 0);
             this.tpnlBehavior.Name = "tpnlBehavior";
-            this.tpnlBehavior.RowCount = 1;
-            this.tpnlBehavior.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tpnlBehavior.RowCount = 2;
+            this.tpnlBehavior.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tpnlBehavior.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tpnlBehavior.Size = new System.Drawing.Size(765, 185);
             this.tpnlBehavior.TabIndex = 1;
             // 
             // grpBehavior_Display
             // 
-            this.grpBehavior_Display.Controls.Add(this.chkBehavior_Display_FlashColon);
-            this.grpBehavior_Display.Controls.Add(this.chkBehavior_Display_ShowDate);
-            this.grpBehavior_Display.Controls.Add(this.chkBehavior_Display_24HourFormat);
-            this.grpBehavior_Display.Controls.Add(this.chkBehavior_Display_DDMMFormat);
+            this.grpBehavior_Display.Controls.Add(this.fpnlBehavior_Display);
             this.grpBehavior_Display.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpBehavior_Display.Location = new System.Drawing.Point(3, 3);
             this.grpBehavior_Display.Name = "grpBehavior_Display";
-            this.grpBehavior_Display.Size = new System.Drawing.Size(559, 179);
+            this.grpBehavior_Display.Size = new System.Drawing.Size(559, 86);
             this.grpBehavior_Display.TabIndex = 0;
             this.grpBehavior_Display.TabStop = false;
             this.grpBehavior_Display.Text = "Display options";
@@ -347,10 +354,10 @@
             this.chkBehavior_Display_FlashColon.AutoSize = true;
             this.chkBehavior_Display_FlashColon.Checked = true;
             this.chkBehavior_Display_FlashColon.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkBehavior_Display_FlashColon.Location = new System.Drawing.Point(6, 19);
+            this.chkBehavior_Display_FlashColon.Location = new System.Drawing.Point(160, 3);
             this.chkBehavior_Display_FlashColon.Name = "chkBehavior_Display_FlashColon";
             this.chkBehavior_Display_FlashColon.Size = new System.Drawing.Size(127, 17);
-            this.chkBehavior_Display_FlashColon.TabIndex = 0;
+            this.chkBehavior_Display_FlashColon.TabIndex = 2;
             this.chkBehavior_Display_FlashColon.Text = "Enable flashing colon";
             this.chkBehavior_Display_FlashColon.UseVisualStyleBackColor = true;
             this.chkBehavior_Display_FlashColon.CheckedChanged += new System.EventHandler(this.chkBehavior_Display_Options_CheckedChanged);
@@ -360,21 +367,21 @@
             this.chkBehavior_Display_ShowDate.AutoSize = true;
             this.chkBehavior_Display_ShowDate.Checked = true;
             this.chkBehavior_Display_ShowDate.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkBehavior_Display_ShowDate.Location = new System.Drawing.Point(6, 42);
+            this.chkBehavior_Display_ShowDate.Location = new System.Drawing.Point(160, 26);
             this.chkBehavior_Display_ShowDate.Name = "chkBehavior_Display_ShowDate";
-            this.chkBehavior_Display_ShowDate.Size = new System.Drawing.Size(126, 17);
-            this.chkBehavior_Display_ShowDate.TabIndex = 1;
-            this.chkBehavior_Display_ShowDate.Text = "Auto-rotate time/date";
+            this.chkBehavior_Display_ShowDate.Size = new System.Drawing.Size(163, 17);
+            this.chkBehavior_Display_ShowDate.TabIndex = 3;
+            this.chkBehavior_Display_ShowDate.Text = "Cycle between time and date";
             this.chkBehavior_Display_ShowDate.UseVisualStyleBackColor = true;
             this.chkBehavior_Display_ShowDate.CheckedChanged += new System.EventHandler(this.chkBehavior_Display_Options_CheckedChanged);
             // 
             // chkBehavior_Display_24HourFormat
             // 
             this.chkBehavior_Display_24HourFormat.AutoSize = true;
-            this.chkBehavior_Display_24HourFormat.Location = new System.Drawing.Point(6, 65);
+            this.chkBehavior_Display_24HourFormat.Location = new System.Drawing.Point(3, 3);
             this.chkBehavior_Display_24HourFormat.Name = "chkBehavior_Display_24HourFormat";
             this.chkBehavior_Display_24HourFormat.Size = new System.Drawing.Size(138, 17);
-            this.chkBehavior_Display_24HourFormat.TabIndex = 2;
+            this.chkBehavior_Display_24HourFormat.TabIndex = 0;
             this.chkBehavior_Display_24HourFormat.Text = "Use 24-hour time format";
             this.chkBehavior_Display_24HourFormat.UseVisualStyleBackColor = true;
             this.chkBehavior_Display_24HourFormat.CheckedChanged += new System.EventHandler(this.chkBehavior_Display_Options_CheckedChanged);
@@ -382,10 +389,10 @@
             // chkBehavior_Display_DDMMFormat
             // 
             this.chkBehavior_Display_DDMMFormat.AutoSize = true;
-            this.chkBehavior_Display_DDMMFormat.Location = new System.Drawing.Point(6, 88);
+            this.chkBehavior_Display_DDMMFormat.Location = new System.Drawing.Point(3, 26);
             this.chkBehavior_Display_DDMMFormat.Name = "chkBehavior_Display_DDMMFormat";
             this.chkBehavior_Display_DDMMFormat.Size = new System.Drawing.Size(151, 17);
-            this.chkBehavior_Display_DDMMFormat.TabIndex = 3;
+            this.chkBehavior_Display_DDMMFormat.TabIndex = 1;
             this.chkBehavior_Display_DDMMFormat.Text = "Use \"DD-MM\" date format";
             this.chkBehavior_Display_DDMMFormat.UseVisualStyleBackColor = true;
             this.chkBehavior_Display_DDMMFormat.CheckedChanged += new System.EventHandler(this.chkBehavior_Display_Options_CheckedChanged);
@@ -396,8 +403,9 @@
             this.grpBehavior_Anchoring.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpBehavior_Anchoring.Location = new System.Drawing.Point(568, 3);
             this.grpBehavior_Anchoring.Name = "grpBehavior_Anchoring";
+            this.tpnlBehavior.SetRowSpan(this.grpBehavior_Anchoring, 2);
             this.grpBehavior_Anchoring.Size = new System.Drawing.Size(194, 179);
-            this.grpBehavior_Anchoring.TabIndex = 1;
+            this.grpBehavior_Anchoring.TabIndex = 2;
             this.grpBehavior_Anchoring.TabStop = false;
             this.grpBehavior_Anchoring.Text = "Anchoring && positioning";
             // 
@@ -413,12 +421,14 @@
             this.tpnlBehavior_Anchoring.Controls.Add(this.cbxBehavior_Anchoring_Monitor, 0, 2);
             this.tpnlBehavior_Anchoring.Controls.Add(this.chkBehavior_Anchoring_Lock, 0, 3);
             this.tpnlBehavior_Anchoring.Controls.Add(this.chkBehavior_Anchoring_AlwaysOnTop, 0, 5);
+            this.tpnlBehavior_Anchoring.Controls.Add(this.chkBehavior_Anchoring_MiniClock, 0, 6);
             this.tpnlBehavior_Anchoring.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tpnlBehavior_Anchoring.Location = new System.Drawing.Point(3, 16);
             this.tpnlBehavior_Anchoring.Name = "tpnlBehavior_Anchoring";
-            this.tpnlBehavior_Anchoring.RowCount = 6;
+            this.tpnlBehavior_Anchoring.RowCount = 7;
             this.tpnlBehavior_Anchoring.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tpnlBehavior_Anchoring.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tpnlBehavior_Anchoring.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tpnlBehavior_Anchoring.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tpnlBehavior_Anchoring.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tpnlBehavior_Anchoring.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -432,10 +442,11 @@
             this.rbtnBehavior_Anchoring_NW.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rbtnBehavior_Anchoring_NW.Location = new System.Drawing.Point(3, 3);
             this.rbtnBehavior_Anchoring_NW.Name = "rbtnBehavior_Anchoring_NW";
-            this.rbtnBehavior_Anchoring_NW.Size = new System.Drawing.Size(88, 37);
+            this.rbtnBehavior_Anchoring_NW.Size = new System.Drawing.Size(88, 26);
             this.rbtnBehavior_Anchoring_NW.TabIndex = 0;
             this.rbtnBehavior_Anchoring_NW.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtnBehavior_Anchoring_NW.UseVisualStyleBackColor = true;
+            this.rbtnBehavior_Anchoring_NW.CheckedChanged += new System.EventHandler(this.rbtnBehavior_Anchoring_CheckedChanged);
             // 
             // rbtnBehavior_Anchoring_NE
             // 
@@ -444,33 +455,36 @@
             this.rbtnBehavior_Anchoring_NE.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rbtnBehavior_Anchoring_NE.Location = new System.Drawing.Point(97, 3);
             this.rbtnBehavior_Anchoring_NE.Name = "rbtnBehavior_Anchoring_NE";
-            this.rbtnBehavior_Anchoring_NE.Size = new System.Drawing.Size(88, 37);
+            this.rbtnBehavior_Anchoring_NE.Size = new System.Drawing.Size(88, 26);
             this.rbtnBehavior_Anchoring_NE.TabIndex = 1;
             this.rbtnBehavior_Anchoring_NE.TabStop = true;
             this.rbtnBehavior_Anchoring_NE.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtnBehavior_Anchoring_NE.UseVisualStyleBackColor = true;
+            this.rbtnBehavior_Anchoring_NE.CheckedChanged += new System.EventHandler(this.rbtnBehavior_Anchoring_CheckedChanged);
             // 
             // rbtnBehavior_Anchoring_SW
             // 
             this.rbtnBehavior_Anchoring_SW.Appearance = System.Windows.Forms.Appearance.Button;
             this.rbtnBehavior_Anchoring_SW.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rbtnBehavior_Anchoring_SW.Location = new System.Drawing.Point(3, 46);
+            this.rbtnBehavior_Anchoring_SW.Location = new System.Drawing.Point(3, 35);
             this.rbtnBehavior_Anchoring_SW.Name = "rbtnBehavior_Anchoring_SW";
-            this.rbtnBehavior_Anchoring_SW.Size = new System.Drawing.Size(88, 37);
+            this.rbtnBehavior_Anchoring_SW.Size = new System.Drawing.Size(88, 26);
             this.rbtnBehavior_Anchoring_SW.TabIndex = 2;
             this.rbtnBehavior_Anchoring_SW.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtnBehavior_Anchoring_SW.UseVisualStyleBackColor = true;
+            this.rbtnBehavior_Anchoring_SW.CheckedChanged += new System.EventHandler(this.rbtnBehavior_Anchoring_CheckedChanged);
             // 
             // rbtnBehavior_Anchoring_SE
             // 
             this.rbtnBehavior_Anchoring_SE.Appearance = System.Windows.Forms.Appearance.Button;
             this.rbtnBehavior_Anchoring_SE.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rbtnBehavior_Anchoring_SE.Location = new System.Drawing.Point(97, 46);
+            this.rbtnBehavior_Anchoring_SE.Location = new System.Drawing.Point(97, 35);
             this.rbtnBehavior_Anchoring_SE.Name = "rbtnBehavior_Anchoring_SE";
-            this.rbtnBehavior_Anchoring_SE.Size = new System.Drawing.Size(88, 37);
+            this.rbtnBehavior_Anchoring_SE.Size = new System.Drawing.Size(88, 26);
             this.rbtnBehavior_Anchoring_SE.TabIndex = 3;
             this.rbtnBehavior_Anchoring_SE.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtnBehavior_Anchoring_SE.UseVisualStyleBackColor = true;
+            this.rbtnBehavior_Anchoring_SE.CheckedChanged += new System.EventHandler(this.rbtnBehavior_Anchoring_CheckedChanged);
             // 
             // cbxBehavior_Anchoring_Monitor
             // 
@@ -480,7 +494,7 @@
             this.cbxBehavior_Anchoring_Monitor.FormattingEnabled = true;
             this.cbxBehavior_Anchoring_Monitor.Items.AddRange(new object[] {
             "(Default Monitor)"});
-            this.cbxBehavior_Anchoring_Monitor.Location = new System.Drawing.Point(3, 89);
+            this.cbxBehavior_Anchoring_Monitor.Location = new System.Drawing.Point(3, 67);
             this.cbxBehavior_Anchoring_Monitor.Name = "cbxBehavior_Anchoring_Monitor";
             this.cbxBehavior_Anchoring_Monitor.Size = new System.Drawing.Size(182, 21);
             this.cbxBehavior_Anchoring_Monitor.TabIndex = 4;
@@ -489,7 +503,7 @@
             // 
             this.chkBehavior_Anchoring_Lock.AutoSize = true;
             this.tpnlBehavior_Anchoring.SetColumnSpan(this.chkBehavior_Anchoring_Lock, 2);
-            this.chkBehavior_Anchoring_Lock.Location = new System.Drawing.Point(3, 116);
+            this.chkBehavior_Anchoring_Lock.Location = new System.Drawing.Point(3, 94);
             this.chkBehavior_Anchoring_Lock.Name = "chkBehavior_Anchoring_Lock";
             this.chkBehavior_Anchoring_Lock.Size = new System.Drawing.Size(139, 17);
             this.chkBehavior_Anchoring_Lock.TabIndex = 5;
@@ -501,13 +515,25 @@
             // 
             this.chkBehavior_Anchoring_AlwaysOnTop.AutoSize = true;
             this.tpnlBehavior_Anchoring.SetColumnSpan(this.chkBehavior_Anchoring_AlwaysOnTop, 2);
-            this.chkBehavior_Anchoring_AlwaysOnTop.Location = new System.Drawing.Point(3, 139);
+            this.chkBehavior_Anchoring_AlwaysOnTop.Location = new System.Drawing.Point(3, 117);
             this.chkBehavior_Anchoring_AlwaysOnTop.Name = "chkBehavior_Anchoring_AlwaysOnTop";
             this.chkBehavior_Anchoring_AlwaysOnTop.Size = new System.Drawing.Size(92, 17);
             this.chkBehavior_Anchoring_AlwaysOnTop.TabIndex = 5;
             this.chkBehavior_Anchoring_AlwaysOnTop.Text = "Always on top";
             this.chkBehavior_Anchoring_AlwaysOnTop.UseVisualStyleBackColor = true;
             this.chkBehavior_Anchoring_AlwaysOnTop.CheckedChanged += new System.EventHandler(this.chkBehavior_Display_Options_CheckedChanged);
+            // 
+            // chkBehavior_Anchoring_MiniClock
+            // 
+            this.chkBehavior_Anchoring_MiniClock.AutoSize = true;
+            this.tpnlBehavior_Anchoring.SetColumnSpan(this.chkBehavior_Anchoring_MiniClock, 2);
+            this.chkBehavior_Anchoring_MiniClock.Location = new System.Drawing.Point(3, 140);
+            this.chkBehavior_Anchoring_MiniClock.Name = "chkBehavior_Anchoring_MiniClock";
+            this.chkBehavior_Anchoring_MiniClock.Size = new System.Drawing.Size(119, 17);
+            this.chkBehavior_Anchoring_MiniClock.TabIndex = 6;
+            this.chkBehavior_Anchoring_MiniClock.Text = "Use miniature clock";
+            this.chkBehavior_Anchoring_MiniClock.UseVisualStyleBackColor = true;
+            this.chkBehavior_Anchoring_MiniClock.CheckedChanged += new System.EventHandler(this.chkBehavior_Display_Options_CheckedChanged);
             // 
             // tabHelp
             // 
@@ -523,8 +549,8 @@
             // tpnlHelp
             // 
             this.tpnlHelp.ColumnCount = 3;
-            this.tpnlHelp.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
-            this.tpnlHelp.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tpnlHelp.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tpnlHelp.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tpnlHelp.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tpnlHelp.Controls.Add(this.btnHelp_Docs, 0, 0);
             this.tpnlHelp.Controls.Add(this.btnHelp_About, 1, 0);
@@ -538,7 +564,6 @@
             // 
             // btnHelp_Docs
             // 
-            this.btnHelp_Docs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnHelp_Docs.Image = global::Sidera.Utilities.Clock.Properties.Resources.LifePreserver32;
             this.btnHelp_Docs.Location = new System.Drawing.Point(12, 12);
             this.btnHelp_Docs.Margin = new System.Windows.Forms.Padding(12);
@@ -549,11 +574,11 @@
             this.btnHelp_Docs.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnHelp_Docs.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnHelp_Docs.UseVisualStyleBackColor = true;
+            this.btnHelp_Docs.Visible = false;
             this.btnHelp_Docs.Click += new System.EventHandler(this.btnHelp_Docs_Click);
             // 
             // btnHelp_About
             // 
-            this.btnHelp_About.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnHelp_About.Image = global::Sidera.Utilities.Clock.Properties.Resources.Info32;
             this.btnHelp_About.Location = new System.Drawing.Point(212, 12);
             this.btnHelp_About.Margin = new System.Windows.Forms.Padding(12);
@@ -569,13 +594,34 @@
             // pnlAppearance_Sample
             // 
             this.pnlAppearance_Sample.BackColor = System.Drawing.Color.Teal;
-            this.pnlAppearance_Sample.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pnlAppearance_Sample.Controls.Add(this.clkApperance_Sample);
+            this.pnlAppearance_Sample.Controls.Add(this.clkAppearance_Sample);
             this.pnlAppearance_Sample.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlAppearance_Sample.Location = new System.Drawing.Point(3, 3);
+            this.pnlAppearance_Sample.Location = new System.Drawing.Point(0, 0);
+            this.pnlAppearance_Sample.Margin = new System.Windows.Forms.Padding(0);
             this.pnlAppearance_Sample.Name = "pnlAppearance_Sample";
-            this.pnlAppearance_Sample.Size = new System.Drawing.Size(773, 494);
+            this.pnlAppearance_Sample.Size = new System.Drawing.Size(779, 500);
             this.pnlAppearance_Sample.TabIndex = 0;
+            // 
+            // clkAppearance_Sample
+            // 
+            this.clkAppearance_Sample.AutoSize = true;
+            this.clkAppearance_Sample.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.clkAppearance_Sample.BackColor = System.Drawing.Color.Silver;
+            this.clkAppearance_Sample.DisplayBackColor = System.Drawing.Color.Black;
+            this.clkAppearance_Sample.DisplayOffColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.clkAppearance_Sample.DisplayOnColor = System.Drawing.Color.Red;
+            this.clkAppearance_Sample.FlashColon = true;
+            this.clkAppearance_Sample.Location = new System.Drawing.Point(10, 10);
+            this.clkAppearance_Sample.Margin = new System.Windows.Forms.Padding(0);
+            this.clkAppearance_Sample.MiniClock = true;
+            this.clkAppearance_Sample.Name = "clkAppearance_Sample";
+            this.clkAppearance_Sample.OffColorMatchesOnColor = true;
+            this.clkAppearance_Sample.PositionLocked = true;
+            this.clkAppearance_Sample.ShowDate = true;
+            this.clkAppearance_Sample.Size = new System.Drawing.Size(418, 220);
+            this.clkAppearance_Sample.TabIndex = 0;
+            this.clkAppearance_Sample.Use24HourTimeFormat = false;
+            this.clkAppearance_Sample.UseDDMMFormat = false;
             // 
             // btnOK
             // 
@@ -623,6 +669,7 @@
             this.tpnlLayout.Controls.Add(this.pnlAppearance_Sample, 0, 0);
             this.tpnlLayout.Controls.Add(this.tcpnlTabs, 0, 1);
             this.tpnlLayout.Location = new System.Drawing.Point(3, 3);
+            this.tpnlLayout.Margin = new System.Windows.Forms.Padding(0);
             this.tpnlLayout.Name = "tpnlLayout";
             this.tpnlLayout.RowCount = 2;
             this.tpnlLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 500F));
@@ -630,25 +677,50 @@
             this.tpnlLayout.Size = new System.Drawing.Size(779, 717);
             this.tpnlLayout.TabIndex = 4;
             // 
-            // clkApperance_Sample
+            // fpnlBehavior_Display
             // 
-            this.clkApperance_Sample.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.clkApperance_Sample.AutoSize = true;
-            this.clkApperance_Sample.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.clkApperance_Sample.BackColor = System.Drawing.Color.Silver;
-            this.clkApperance_Sample.DisplayBackColor = System.Drawing.Color.Black;
-            this.clkApperance_Sample.DisplayOffColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.clkApperance_Sample.DisplayOnColor = System.Drawing.Color.Red;
-            this.clkApperance_Sample.FlashColon = true;
-            this.clkApperance_Sample.Location = new System.Drawing.Point(112, 113);
-            this.clkApperance_Sample.Name = "clkApperance_Sample";
-            this.clkApperance_Sample.OffColorMatchesOnColor = true;
-            this.clkApperance_Sample.PositionLocked = true;
-            this.clkApperance_Sample.ShowDate = true;
-            this.clkApperance_Sample.Size = new System.Drawing.Size(544, 265);
-            this.clkApperance_Sample.TabIndex = 0;
-            this.clkApperance_Sample.Use24HourTimeFormat = false;
-            this.clkApperance_Sample.UseDDMMFormat = false;
+            this.fpnlBehavior_Display.Controls.Add(this.chkBehavior_Display_24HourFormat);
+            this.fpnlBehavior_Display.Controls.Add(this.chkBehavior_Display_DDMMFormat);
+            this.fpnlBehavior_Display.Controls.Add(this.chkBehavior_Display_FlashColon);
+            this.fpnlBehavior_Display.Controls.Add(this.chkBehavior_Display_ShowDate);
+            this.fpnlBehavior_Display.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fpnlBehavior_Display.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.fpnlBehavior_Display.Location = new System.Drawing.Point(3, 16);
+            this.fpnlBehavior_Display.Name = "fpnlBehavior_Display";
+            this.fpnlBehavior_Display.Size = new System.Drawing.Size(553, 67);
+            this.fpnlBehavior_Display.TabIndex = 0;
+            // 
+            // grpBehavior_Miscellaneous
+            // 
+            this.grpBehavior_Miscellaneous.Controls.Add(this.fpnlBehavior_Miscellaneous);
+            this.grpBehavior_Miscellaneous.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpBehavior_Miscellaneous.Location = new System.Drawing.Point(3, 95);
+            this.grpBehavior_Miscellaneous.Name = "grpBehavior_Miscellaneous";
+            this.grpBehavior_Miscellaneous.Size = new System.Drawing.Size(559, 87);
+            this.grpBehavior_Miscellaneous.TabIndex = 1;
+            this.grpBehavior_Miscellaneous.TabStop = false;
+            this.grpBehavior_Miscellaneous.Text = "Miscellaneous";
+            // 
+            // fpnlBehavior_Miscellaneous
+            // 
+            this.fpnlBehavior_Miscellaneous.Controls.Add(this.chkBehavior_Miscellaneous_AutoStart);
+            this.fpnlBehavior_Miscellaneous.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fpnlBehavior_Miscellaneous.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.fpnlBehavior_Miscellaneous.Location = new System.Drawing.Point(3, 16);
+            this.fpnlBehavior_Miscellaneous.Name = "fpnlBehavior_Miscellaneous";
+            this.fpnlBehavior_Miscellaneous.Size = new System.Drawing.Size(553, 68);
+            this.fpnlBehavior_Miscellaneous.TabIndex = 0;
+            // 
+            // chkBehavior_Miscellaneous_AutoStart
+            // 
+            this.chkBehavior_Miscellaneous_AutoStart.AutoSize = true;
+            this.chkBehavior_Miscellaneous_AutoStart.Location = new System.Drawing.Point(3, 3);
+            this.chkBehavior_Miscellaneous_AutoStart.Name = "chkBehavior_Miscellaneous_AutoStart";
+            this.chkBehavior_Miscellaneous_AutoStart.Size = new System.Drawing.Size(153, 17);
+            this.chkBehavior_Miscellaneous_AutoStart.TabIndex = 0;
+            this.chkBehavior_Miscellaneous_AutoStart.Text = "Start automatically at logon";
+            this.chkBehavior_Miscellaneous_AutoStart.UseVisualStyleBackColor = true;
+            this.chkBehavior_Miscellaneous_AutoStart.CheckedChanged += new System.EventHandler(this.chkBehavior_Display_Options_CheckedChanged);
             // 
             // OptionsDialog
             // 
@@ -680,7 +752,6 @@
             this.tabBehavior.ResumeLayout(false);
             this.tpnlBehavior.ResumeLayout(false);
             this.grpBehavior_Display.ResumeLayout(false);
-            this.grpBehavior_Display.PerformLayout();
             this.grpBehavior_Anchoring.ResumeLayout(false);
             this.tpnlBehavior_Anchoring.ResumeLayout(false);
             this.tpnlBehavior_Anchoring.PerformLayout();
@@ -689,6 +760,11 @@
             this.pnlAppearance_Sample.ResumeLayout(false);
             this.pnlAppearance_Sample.PerformLayout();
             this.tpnlLayout.ResumeLayout(false);
+            this.fpnlBehavior_Display.ResumeLayout(false);
+            this.fpnlBehavior_Display.PerformLayout();
+            this.grpBehavior_Miscellaneous.ResumeLayout(false);
+            this.fpnlBehavior_Miscellaneous.ResumeLayout(false);
+            this.fpnlBehavior_Miscellaneous.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -701,7 +777,7 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnApply;
         private System.Windows.Forms.Panel pnlAppearance_Sample;
-        private ClockControl clkApperance_Sample;
+        private ClockControl clkAppearance_Sample;
         private System.Windows.Forms.TableLayoutPanel tpnlAppearance_Advanced;
         private System.Windows.Forms.Label lblAppearance_Advanced_BezelColor;
         private System.Windows.Forms.Label lblAppearance_Advanced_DisplayBackColor;
@@ -738,5 +814,10 @@
         private System.Windows.Forms.TableLayoutPanel tpnlHelp;
         private System.Windows.Forms.Button btnHelp_Docs;
         private System.Windows.Forms.Button btnHelp_About;
+        private System.Windows.Forms.CheckBox chkBehavior_Anchoring_MiniClock;
+        private System.Windows.Forms.GroupBox grpBehavior_Miscellaneous;
+        private System.Windows.Forms.FlowLayoutPanel fpnlBehavior_Miscellaneous;
+        private System.Windows.Forms.CheckBox chkBehavior_Miscellaneous_AutoStart;
+        private System.Windows.Forms.FlowLayoutPanel fpnlBehavior_Display;
     }
 }

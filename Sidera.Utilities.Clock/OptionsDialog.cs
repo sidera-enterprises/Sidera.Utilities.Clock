@@ -67,11 +67,16 @@ namespace Sidera.Utilities.Clock
             
             FileInfo fiExe = new FileInfo(Assembly.GetExecutingAssembly().Location);
 
-            string exeDir, exeName, cfgFilename;
+            string pgmFilesDir, pgmFilesX86Dir, appDataDir, exeDir, exeName;
+            pgmFilesDir = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+            pgmFilesX86Dir = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
+            appDataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Sidera", "Clock");
             exeDir = fiExe.DirectoryName;
             exeName = Path.GetFileNameWithoutExtension(fiExe.FullName);
 
-            string themesDir = Path.Combine(exeDir, "themes");
+            string themesDir = Path.Combine(exeDir.ToUpper().StartsWith(pgmFilesDir.ToUpper()) || exeDir.ToUpper().StartsWith(pgmFilesX86Dir.ToUpper()) ? appDataDir : exeDir,
+                "themes");
+
             DirectoryInfo diThemes = new DirectoryInfo(themesDir);
 
             if (diThemes.Exists)
@@ -112,6 +117,7 @@ namespace Sidera.Utilities.Clock
             chkBehavior_Display_ShowDate.CheckedChanged += Control_ValueChanged;
             chkBehavior_Display_24HourFormat.CheckedChanged += Control_ValueChanged;
             chkBehavior_Display_DDMMFormat.CheckedChanged += Control_ValueChanged;
+            chkBehavior_Miscellaneous_AutoStart.CheckedChanged += Control_ValueChanged;
             rbtnBehavior_Anchoring_NW.CheckedChanged += Control_ValueChanged;
             rbtnBehavior_Anchoring_NE.CheckedChanged += Control_ValueChanged;
             rbtnBehavior_Anchoring_SW.CheckedChanged += Control_ValueChanged;
@@ -119,6 +125,37 @@ namespace Sidera.Utilities.Clock
             cbxBehavior_Anchoring_Monitor.SelectedIndexChanged += Control_ValueChanged;
             chkBehavior_Anchoring_Lock.CheckedChanged += Control_ValueChanged;
             chkBehavior_Anchoring_AlwaysOnTop.CheckedChanged += Control_ValueChanged;
+            chkBehavior_Anchoring_MiniClock.CheckedChanged += Control_ValueChanged;
+        }
+
+        public void AnchorSampleClock()
+        {
+            int top, left, right, bottom;
+            top = 10;
+            left = 10;
+            right = clkAppearance_Sample.Parent.Width - clkAppearance_Sample.Width - left;
+            bottom = clkAppearance_Sample.Parent.Height - clkAppearance_Sample.Height - top;
+
+            if (rbtnBehavior_Anchoring_NW.Checked)
+            {
+                clkAppearance_Sample.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                clkAppearance_Sample.Location = new Point(left, top);
+            }
+            else if (rbtnBehavior_Anchoring_NE.Checked)
+            {
+                clkAppearance_Sample.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+                clkAppearance_Sample.Location = new Point(right, top);
+            }
+            else if (rbtnBehavior_Anchoring_SE.Checked)
+            {
+                clkAppearance_Sample.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+                clkAppearance_Sample.Location = new Point(right, bottom);
+            }
+            else if (rbtnBehavior_Anchoring_SW.Checked)
+            {
+                clkAppearance_Sample.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+                clkAppearance_Sample.Location = new Point(left, bottom);
+            }
         }
 
         private void LoadConfig()
@@ -146,14 +183,15 @@ namespace Sidera.Utilities.Clock
             btnAppearance_Advanced_DisplayBackColor.BackColor = backColor;
             btnAppearance_Advanced_DisplayForeColor.BackColor = foreColor;
 
-            clkApperance_Sample.BackColor = btnAppearance_Advanced_BezelColor.BackColor;
-            clkApperance_Sample.DisplayBackColor = btnAppearance_Advanced_DisplayBackColor.BackColor;
-            clkApperance_Sample.DisplayOnColor = btnAppearance_Advanced_DisplayForeColor.BackColor;
+            clkAppearance_Sample.BackColor = btnAppearance_Advanced_BezelColor.BackColor;
+            clkAppearance_Sample.DisplayBackColor = btnAppearance_Advanced_DisplayBackColor.BackColor;
+            clkAppearance_Sample.DisplayOnColor = btnAppearance_Advanced_DisplayForeColor.BackColor;
 
             chkBehavior_Display_FlashColon.Checked = Common.AppConfig.FlashColon;
             chkBehavior_Display_ShowDate.Checked = Common.AppConfig.AutoRotateTimeDate;
             chkBehavior_Display_24HourFormat.Checked = Common.AppConfig.Use24HourTimeFormat;
             chkBehavior_Display_DDMMFormat.Checked = Common.AppConfig.UseDdMmDateFormat;
+            chkBehavior_Miscellaneous_AutoStart.Checked = Common.AppConfig.AutoStart;
             switch (Common.AppConfig.AnchorPosition)
             {
                 case WidgetAnchor.TopLeft:
@@ -172,6 +210,11 @@ namespace Sidera.Utilities.Clock
             try { cbxBehavior_Anchoring_Monitor.SelectedIndex = Common.AppConfig.DefaultMonitor; } catch { /* Do nothing */ }
             chkBehavior_Anchoring_Lock.Checked = Common.AppConfig.LockPosition;
             chkBehavior_Anchoring_AlwaysOnTop.Checked = Common.AppConfig.AlwaysOnTop;
+            chkBehavior_Anchoring_MiniClock.Checked = Common.AppConfig.MiniClock;
+
+            clkAppearance_Sample.MiniClock = Common.AppConfig.MiniClock;
+
+            AnchorSampleClock();
 
             //
 
@@ -195,6 +238,7 @@ namespace Sidera.Utilities.Clock
             Common.AppConfig.AutoRotateTimeDate = chkBehavior_Display_ShowDate.Checked;
             Common.AppConfig.Use24HourTimeFormat = chkBehavior_Display_24HourFormat.Checked;
             Common.AppConfig.UseDdMmDateFormat = chkBehavior_Display_DDMMFormat.Checked;
+            Common.AppConfig.AutoStart = chkBehavior_Miscellaneous_AutoStart.Checked;
             if (rbtnBehavior_Anchoring_NW.Checked)
             {
                 Common.AppConfig.AnchorPosition = WidgetAnchor.TopLeft;
@@ -218,6 +262,7 @@ namespace Sidera.Utilities.Clock
             }
             Common.AppConfig.LockPosition = chkBehavior_Anchoring_Lock.Checked;
             Common.AppConfig.AlwaysOnTop = chkBehavior_Anchoring_AlwaysOnTop.Checked;
+            Common.AppConfig.MiniClock = chkBehavior_Anchoring_MiniClock.Checked;
 
             //
 
@@ -258,9 +303,9 @@ namespace Sidera.Utilities.Clock
                 btnAppearance_Advanced_DisplayBackColor.BackColor = backColor;
                 btnAppearance_Advanced_DisplayForeColor.BackColor = foreColor;
 
-                clkApperance_Sample.BackColor = bezelColor;
-                clkApperance_Sample.DisplayBackColor = backColor;
-                clkApperance_Sample.DisplayOnColor = foreColor;
+                clkAppearance_Sample.BackColor = bezelColor;
+                clkAppearance_Sample.DisplayBackColor = backColor;
+                clkAppearance_Sample.DisplayOnColor = foreColor;
             }
         }
 
@@ -327,6 +372,8 @@ namespace Sidera.Utilities.Clock
             }
 
             RefreshThemesDropdown();
+
+            cbxAppearance_Theme_Name.Text = name;
         }
 
         private void btnAppearance_Theme_Delete_Click(object sender, EventArgs e)
@@ -365,17 +412,25 @@ namespace Sidera.Utilities.Clock
 
             //
 
-            clkApperance_Sample.BackColor = btnAppearance_Advanced_BezelColor.BackColor;
-            clkApperance_Sample.DisplayBackColor = btnAppearance_Advanced_DisplayBackColor.BackColor;
-            clkApperance_Sample.DisplayOnColor = btnAppearance_Advanced_DisplayForeColor.BackColor;
+            clkAppearance_Sample.BackColor = btnAppearance_Advanced_BezelColor.BackColor;
+            clkAppearance_Sample.DisplayBackColor = btnAppearance_Advanced_DisplayBackColor.BackColor;
+            clkAppearance_Sample.DisplayOnColor = btnAppearance_Advanced_DisplayForeColor.BackColor;
         }
 
         private void chkBehavior_Display_Options_CheckedChanged(object sender, EventArgs e)
         {
-            clkApperance_Sample.FlashColon = chkBehavior_Display_FlashColon.Checked;
-            clkApperance_Sample.ShowDate = chkBehavior_Display_ShowDate.Checked;
-            clkApperance_Sample.Use24HourTimeFormat = chkBehavior_Display_24HourFormat.Checked;
-            clkApperance_Sample.UseDDMMFormat = chkBehavior_Display_DDMMFormat.Checked;
+            clkAppearance_Sample.FlashColon = chkBehavior_Display_FlashColon.Checked;
+            clkAppearance_Sample.ShowDate = chkBehavior_Display_ShowDate.Checked;
+            clkAppearance_Sample.Use24HourTimeFormat = chkBehavior_Display_24HourFormat.Checked;
+            clkAppearance_Sample.UseDDMMFormat = chkBehavior_Display_DDMMFormat.Checked;
+            clkAppearance_Sample.MiniClock = chkBehavior_Anchoring_MiniClock.Checked;
+
+            AnchorSampleClock();
+        }
+
+        private void rbtnBehavior_Anchoring_CheckedChanged(object sender, EventArgs e)
+        {
+            AnchorSampleClock();
         }
 
         private void btnHelp_Docs_Click(object sender, EventArgs e)

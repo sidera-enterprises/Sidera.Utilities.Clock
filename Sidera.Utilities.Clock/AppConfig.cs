@@ -17,14 +17,12 @@ namespace Sidera.Utilities.Clock
 
         public AppConfig()
         {
-            FileInfo fiExe = new FileInfo(Assembly.GetExecutingAssembly().Location);
+            FileInfo fiConfig = new FileInfo(Common.ConfigFilename);
+            fiConfig.Directory.Create();
 
-            string exeDir, exeName, cfgFilename;
-            exeDir = fiExe.DirectoryName;
-            exeName = Path.GetFileNameWithoutExtension(fiExe.FullName);
-            cfgFilename = Path.Combine(exeDir, $"{exeName}.Config.xml");
+            //
 
-            _xconfig = new XmlConfig(cfgFilename, "configuration")
+            _xconfig = new XmlConfig(Common.ConfigFilename, "configuration")
             {
                 AutoSave = true,
             };
@@ -33,7 +31,10 @@ namespace Sidera.Utilities.Clock
 
             //
 
-            _xconfig.Save();
+            if (!File.Exists(_xconfig.Filename))
+            {
+                _xconfig.Save();
+            }
         }
 
         #region Appearance
@@ -92,6 +93,36 @@ namespace Sidera.Utilities.Clock
         {
             get { return bool.Parse(_xconfig.GetAttribute("/behavior/format", "date-ddmm") ?? false.ToString()); }
             set { _xconfig.SetAttribute("/behavior/format", "date-ddmm", value.ToString()); }
+        }
+
+        public bool AutoStart
+        {
+            get
+            {
+                string appName, lnkName, lnkFullPath;
+                appName = Path.GetFileNameWithoutExtension(new FileInfo(Common.ExeFilename).Name);
+                lnkName = $"{appName}.lnk";
+                lnkFullPath = Path.Combine(Common.UserShellStartupDirectory, lnkName);
+
+                return File.Exists(lnkFullPath);
+            }
+            set
+            {
+                bool autoStart = value;
+
+                string appName, lnkName, lnkFullPath;
+                appName = Path.GetFileNameWithoutExtension(new FileInfo(Common.ExeFilename).Name);
+                lnkName = $"{appName}.lnk";
+
+                if (autoStart)
+                {
+                    Common.CreateShortcut(Common.UserShellStartupDirectory);
+                }
+                else
+                {
+                    Common.DeleteShortcut(Common.UserShellStartupDirectory);
+                }
+            }
         }
 
         public WidgetAnchor AnchorPosition
@@ -185,6 +216,12 @@ namespace Sidera.Utilities.Clock
         {
             get { return bool.Parse(_xconfig.GetAttribute("/behavior/position", "always-on-top") ?? false.ToString()); }
             set { _xconfig.SetAttribute("/behavior/position", "always-on-top", value.ToString()); }
+        }
+
+        public bool MiniClock
+        {
+            get { return bool.Parse(_xconfig.GetAttribute("/behavior/position", "mini") ?? true.ToString()); }
+            set { _xconfig.SetAttribute("/behavior/position", "mini", value.ToString()); }
         }
         #endregion
     }

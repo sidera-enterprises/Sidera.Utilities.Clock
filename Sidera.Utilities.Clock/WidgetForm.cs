@@ -8,10 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
+using System.IO;
 
 namespace Sidera.Utilities.Clock
 {
-    public partial class WidgetForm: Form
+    public partial class WidgetForm : Form
     {
         private bool _closing;
         private Point _oldPoint;
@@ -31,8 +32,23 @@ namespace Sidera.Utilities.Clock
 
         private void LoadConfig()
         {
+            bool success = false;
+            int attempts = 10;
+
+        start:
             try
             {
+                Hide();
+
+                //
+
+                if (!File.Exists(Common.ConfigFilename))
+                {
+                    Common.InitDefaultThemes();
+                }
+
+                //
+
                 _loadComplete = false;
 
                 if (Common.AppConfig.Theme == null)
@@ -54,30 +70,8 @@ namespace Sidera.Utilities.Clock
                 clockControl.ShowDate = Common.AppConfig.AutoRotateTimeDate;
                 clockControl.Use24HourTimeFormat = Common.AppConfig.Use24HourTimeFormat;
                 clockControl.UseDDMMFormat = Common.AppConfig.UseDdMmDateFormat;
-                //Rectangle screenBounds = Screen.GetWorkingArea(this);
-                //int x, y;
-                //switch (Common.AppConfig.AnchorPosition)
-                //{
-                //    case WidgetAnchor.TopLeft:
-                //        x = Common.AppConfig.WidgetLocation.X;
-                //        y = Common.AppConfig.WidgetLocation.Y;
-                //        break;
-                //    case WidgetAnchor.TopRight:
-                //        x = screenBounds.Width - Width - Common.AppConfig.WidgetLocation.X;
-                //        y = Common.AppConfig.WidgetLocation.Y;
-                //        break;
-                //    case WidgetAnchor.BottomRight:
-                //        x = screenBounds.Width - Width - Common.AppConfig.WidgetLocation.X;
-                //        y = screenBounds.Height - Height - Common.AppConfig.WidgetLocation.Y;
-                //        break;
-                //    case WidgetAnchor.BottomLeft:
-                //        x = Common.AppConfig.WidgetLocation.X;
-                //        y = screenBounds.Height - Height - Common.AppConfig.WidgetLocation.Y;
-                //        break;
-                //    default:
-                //        x = y = 0;
-                //        break;
-                //}
+
+                clockControl.MiniClock = Common.AppConfig.MiniClock;
 
                 int screenId = Common.AppConfig.DefaultMonitor;
                 int screenIndex = screenId - 1;
@@ -99,48 +93,40 @@ namespace Sidera.Utilities.Clock
                     ? Common.AppConfig.WidgetLocation.Y + screenBounds.Y
                     : screenBounds.Height - Height - (Common.AppConfig.WidgetLocation.Y - screenBounds.Y);
 
-                //switch (Common.AppConfig.AnchorPosition)
-                //{
-                //    case WidgetAnchor.TopLeft:
-                //        x = Common.AppConfig.WidgetLocation.X + screenBounds.X;
-                //        y = Common.AppConfig.WidgetLocation.Y + screenBounds.Y;
-                //        break;
-                //    case WidgetAnchor.TopRight:
-                //        x = screenBounds.Width - Width - (Common.AppConfig.WidgetLocation.X + screenBounds.X);
-                //        y = Common.AppConfig.WidgetLocation.Y + screenBounds.Y;
-                //        break;
-                //    case WidgetAnchor.BottomRight:
-                //        x = screenBounds.Width - Width - (Common.AppConfig.WidgetLocation.X + screenBounds.X);
-                //        y = screenBounds.Height - Height - (Common.AppConfig.WidgetLocation.Y + screenBounds.Y);
-                //        break;
-                //    case WidgetAnchor.BottomLeft:
-                //        x = Common.AppConfig.WidgetLocation.X + screenBounds.X;
-                //        y = screenBounds.Height - Height - (Common.AppConfig.WidgetLocation.Y + screenBounds.Y);
-                //        break;
-                //    default:
-                //        x = y = 0;
-                //        break;
-                //}
-
-                //Left = Math.Max(0, Math.Min(screenBounds.Width - Width, x));
-                //Top = Math.Max(0, Math.Min(screenBounds.Height - Height, y));
-
                 Left = x;
                 Top = y;
 
-                //Common.SetScreenLocation(this, Common.AppConfig.DefaultMonitor, x, y);
-                //this.SetScreenId(Common.AppConfig.DefaultMonitor);
                 clockControl.PositionLocked = Common.AppConfig.LockPosition;
                 TopMost = Common.AppConfig.AlwaysOnTop;
+
+                //
+
+                success = true;
             }
             catch (Exception ex)
             {
-                Application.Restart();
-                //LoadConfig();
+                if (!success && attempts > 0)
+                {
+                    attempts--;
+                    goto start;
+                }
+                else
+                {
+                    MessageBox.Show(ex.Message,
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+
+                    Application.Exit();
+                }
             }
             finally
             {
                 _loadComplete = true;
+
+                //
+
+                Show();
             }
         }
 
@@ -156,7 +142,7 @@ namespace Sidera.Utilities.Clock
 
             bool hidden = Opacity == 0;
             e.Cancel = Opacity > 0;
-            
+
             if (Opacity > 0)
                 bgwFade.RunWorkerAsync();
         }
@@ -293,24 +279,24 @@ namespace Sidera.Utilities.Clock
             _windowDragging = true;
         }
 
-        private void mnuTrayIcon_Options_Click(object sender, EventArgs e)
+        private void mnuContecxt_Options_Click(object sender, EventArgs e)
         {
             clockControl_OptionsClick(null, EventArgs.Empty);
         }
 
-        private void mnuTrayIcon_About_Click(object sender, EventArgs e)
+        private void mnuContecxt_About_Click(object sender, EventArgs e)
         {
-            mnuTrayIcon.Enabled = false;
+            mnuContext.Enabled = false;
 
             AboutBox aboutBox = new AboutBox();
             aboutBox.TopMost = TopMost;
             aboutBox.ShowInTaskbar = true;
             aboutBox.ShowDialog();
 
-            mnuTrayIcon.Enabled = true;
+            mnuContext.Enabled = true;
         }
 
-        private void mnuTrayIcon_Exit_Click(object sender, EventArgs e)
+        private void mnuContecxt_Exit_Click(object sender, EventArgs e)
         {
             Close();
         }

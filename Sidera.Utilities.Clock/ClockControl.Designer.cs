@@ -32,7 +32,6 @@
             this.tpnlLayout = new System.Windows.Forms.TableLayoutPanel();
             this.segmentedDisplay = new Sidera.Utilities.Clock.SegmentedDisplay();
             this.pnlBadge = new System.Windows.Forms.Panel();
-            this.btnOptions = new System.Windows.Forms.Button();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.tpnlLayout.SuspendLayout();
             this.SuspendLayout();
@@ -49,7 +48,6 @@
             this.tpnlLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 36F));
             this.tpnlLayout.Controls.Add(this.segmentedDisplay, 0, 0);
             this.tpnlLayout.Controls.Add(this.pnlBadge, 2, 1);
-            this.tpnlLayout.Controls.Add(this.btnOptions, 4, 1);
             this.tpnlLayout.Location = new System.Drawing.Point(12, 12);
             this.tpnlLayout.Margin = new System.Windows.Forms.Padding(12);
             this.tpnlLayout.Name = "tpnlLayout";
@@ -86,22 +84,6 @@
             this.pnlBadge.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnlBadge_MouseMove);
             this.pnlBadge.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pnlBadge_MouseUp);
             // 
-            // btnOptions
-            // 
-            this.btnOptions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnOptions.FlatAppearance.BorderSize = 0;
-            this.btnOptions.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.btnOptions.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.btnOptions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOptions.Image = global::Sidera.Utilities.Clock.Properties.Resources.Gear16;
-            this.btnOptions.Location = new System.Drawing.Point(484, 205);
-            this.btnOptions.Margin = new System.Windows.Forms.Padding(0);
-            this.btnOptions.Name = "btnOptions";
-            this.btnOptions.Size = new System.Drawing.Size(36, 36);
-            this.btnOptions.TabIndex = 3;
-            this.btnOptions.UseVisualStyleBackColor = true;
-            this.btnOptions.Click += new System.EventHandler(this.btnOptions_Click);
-            // 
             // timer
             // 
             this.timer.Enabled = true;
@@ -132,7 +114,6 @@
         private System.Windows.Forms.TableLayoutPanel tpnlLayout;
         private SegmentedDisplay segmentedDisplay;
         private System.Windows.Forms.Panel pnlBadge;
-        private System.Windows.Forms.Button btnOptions;
         private System.Windows.Forms.Timer timer;
     }
 }

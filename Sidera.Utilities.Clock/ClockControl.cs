@@ -18,7 +18,7 @@ namespace Sidera.Utilities.Clock
         private bool _mouseDown;
         private Point _oldPoint;
 
-        private bool _is24Hour, _flashColon, _showDate, _useDDMM, _offColorMatchesOnColor, _positionLocked;
+        private bool _is24Hour, _flashColon, _showDate, _useDDMM, _offColorMatchesOnColor, _positionLocked, _mini;
 
         public ClockControl()
         {
@@ -30,6 +30,7 @@ namespace Sidera.Utilities.Clock
             _useDDMM = false;
             _offColorMatchesOnColor = true;
             _positionLocked = false;
+            _mini = true;
         }
 
         public Color DisplayBackColor
@@ -112,6 +113,35 @@ namespace Sidera.Utilities.Clock
         {
             get { return _positionLocked; }
             set { _positionLocked = value; }
+        }
+
+        public bool MiniClock
+        {
+            get
+            {
+                return _mini;
+            }
+            set
+            {
+                Hide();
+
+                _mini = value;
+                
+                Size digitSize = _mini
+                    ? new Size(50, 100)
+                    : new Size(75, 150);
+
+                int segmentWeight = _mini ? 10 : 16;
+
+                //segmentedDisplay.DigitSize = digitSize;
+                //segmentedDisplay.SegmentWeight = segmentWeight;
+
+                segmentedDisplay.SetSegmentedDigitProperties(segmentWeight, digitSize);
+
+                Invalidate();
+
+                Show();
+            }
         }
 
         private Color GetOffColor(Color color)

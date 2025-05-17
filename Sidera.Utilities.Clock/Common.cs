@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace Sidera.Utilities.Clock
 {
@@ -22,6 +25,56 @@ namespace Sidera.Utilities.Clock
                 }
 
                 return _appConfig;
+            }
+        }
+
+        public static string ExeDirectory { get { return (new FileInfo(ExeFilename)).Directory.FullName; } }
+        public static string ExeFilename { get { return Assembly.GetExecutingAssembly().Location; } }
+        public static string ProgramFilesDirectory { get { return $@"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles).TrimEnd('\\')}\"; } }
+        public static string ProgramFilesX86Directory { get { return $@"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86).TrimEnd('\\')}\"; } }
+        public static string UserAppDataDirectory {get { return $@"{Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Sidera", "Clock").TrimEnd('\\')}\"; } }
+        public static string UserShellStartupDirectory { get { return $@"{Environment.GetFolderPath(Environment.SpecialFolder.Startup)}\"; } }
+
+        public static string ConfigFilePath
+        {
+            get
+            {
+                DirectoryInfo diProgramFiles, diProgramFilesX86;
+                diProgramFiles = new DirectoryInfo(ProgramFilesDirectory);
+                diProgramFilesX86 = new DirectoryInfo(ProgramFilesX86Directory);
+
+                FileInfo fiExe = new FileInfo(ExeFilename);
+                string exeName = Path.GetFileNameWithoutExtension(fiExe.FullName);
+
+                string baseDirectory = ExeFilename.ToUpper().StartsWith(ProgramFilesX86Directory.ToUpper()) || ExeFilename.ToUpper().StartsWith(ProgramFilesDirectory.ToUpper())
+                    ? UserAppDataDirectory
+                    : ExeFilename;
+
+                return Path.Combine(baseDirectory, $"{exeName}.Config.xml");
+            }
+        }
+
+        public static string ConfigFilename
+        {
+            get
+            {
+                FileInfo fiExe = new FileInfo(Assembly.GetExecutingAssembly().Location);
+
+                string pgmFilesDir, pgmFilesX86Dir, appDataDir, exeDir, exeName, cfgFilename;
+                pgmFilesDir = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+                pgmFilesX86Dir = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
+                appDataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Sidera", "Clock");
+                exeDir = fiExe.DirectoryName;
+                exeName = Path.GetFileNameWithoutExtension(fiExe.FullName);
+
+                string baseDir
+                    = exeDir.ToUpper().StartsWith(pgmFilesDir.ToUpper()) || exeDir.ToUpper().StartsWith(pgmFilesX86Dir.ToUpper())
+                        ? appDataDir
+                        : exeDir;
+
+                cfgFilename = Path.Combine(baseDir, $"{exeName}.Config.xml");
+
+                return cfgFilename;
             }
         }
 
@@ -47,6 +100,28 @@ namespace Sidera.Utilities.Clock
             return screenId;
         }
 
+        public static int GetScreenId(this Form form)
+        {
+            return Screen.AllScreens.ToList().IndexOf(Screen.FromControl(form)) + 1;
+        }
+
+        public static void InitDefaultThemes()
+        {
+            ThemeConfig[] themes = new ThemeConfig[]
+            {
+                new ThemeConfig("Hotdog Stand") { BezelColor = Color.Red, DisplayBackgroundColor = Color.Yellow, DisplayForegroundColor = Color.Red },
+                new ThemeConfig("LCD - Black") { BezelColor = Color.FromArgb(0x8080c0), DisplayBackgroundColor = Color.FromArgb(0xc0c060), DisplayForegroundColor = Color.Black },
+                new ThemeConfig("LED - Blue") { BezelColor = Color.Silver, DisplayBackgroundColor = Color.Black, DisplayForegroundColor = Color.Blue },
+                new ThemeConfig("LED - Cyan") { BezelColor = Color.Silver, DisplayBackgroundColor = Color.Black, DisplayForegroundColor = Color.Cyan },
+                new ThemeConfig("LED - Fuchsia") { BezelColor = Color.Silver, DisplayBackgroundColor = Color.Black, DisplayForegroundColor = Color.Fuchsia },
+                new ThemeConfig("LED - Green") { BezelColor = Color.Silver, DisplayBackgroundColor = Color.Black, DisplayForegroundColor = Color.Green },
+                new ThemeConfig("LED - Red") { BezelColor = Color.Silver, DisplayBackgroundColor = Color.Black, DisplayForegroundColor = Color.Red },
+                new ThemeConfig("LED - White") { BezelColor = Color.Silver, DisplayBackgroundColor = Color.Black, DisplayForegroundColor = Color.White},
+                new ThemeConfig("LED - Yellow") { BezelColor = Color.Silver, DisplayBackgroundColor = Color.Black, DisplayForegroundColor = Color.Yellow },
+                new ThemeConfig("Mahogany") { BezelColor = Color.FromArgb(0xc04000), DisplayBackgroundColor = Color.FromArgb(0x400000), DisplayForegroundColor = Color.FromArgb(0xffe000)},
+            };
+        }
+
         public static void SetScreenLocation(this Form form, int screenId, int x, int y)
         {
             Screen targetScreen = GetScreenFromId(screenId);
@@ -56,88 +131,37 @@ namespace Sidera.Utilities.Clock
             offsetX = x + screenBounds.X;
             offsetY = y + screenBounds.Y;
 
-            //offsetX = Math.Max(0, Math.Min(offsetX, screenBounds.Width - form.Width));
-            //offsetY = Math.Max(0, Math.Min(offsetY, screenBounds.Height - form.Height));
-
             Point newLocation = new Point(offsetX, offsetY);
             form.Location = newLocation;
         }
 
-        //public static void SetScreenId(this Form form, int id)
-        //{
-        //    int index = id - 1;
-
-        //    Screen targetScreen = Screen.AllScreens[index - 1];
-        //    Rectangle screenBounds = targetScreen.Bounds;
-
-        //    int offsetX, offsetY;
-        //    offsetX = screenBounds.X;
-        //    offsetY = screenBounds.Y;
-
-        //    int x, y;
-        //    x = form.Left + offsetX;
-        //    y = form.Top + offsetY;
-
-        //    Point newPoint = new Point(x, y);
-        //    form.Location = newPoint;
-
-        //    //int index = id - 1;
-        //    //if (index >= 0 && index < Screen.AllScreens.Length)
-        //    //{
-        //    //    Screen targetScreen = Screen.AllScreens[index];
-        //    //    Rectangle screenBounds = new Rectangle(0,
-        //    //        0,
-        //    //        targetScreen.WorkingArea.Width,
-        //    //        targetScreen.WorkingArea.Height);
-
-        //    //    Point point = screenBounds.Location;
-        //    //    point.X += form.DesktopLocation.X;
-        //    //    point.Y += form.DesktopLocation.Y;
-
-        //    //    form.SetBounds(targetScreen.Bounds.X,
-        //    //        targetScreen.Bounds.Y,
-        //    //        targetScreen.Bounds.Width,
-        //    //        targetScreen.Bounds.Height);
-
-        //    //    form.Show();
-
-        //    //int x, y;
-        //    //switch (AppConfig.AnchorPosition)
-        //    //{
-        //    //    case WidgetAnchor.TopLeft:
-        //    //        x = Common.AppConfig.WidgetLocation.X;
-        //    //        y = Common.AppConfig.WidgetLocation.Y;
-        //    //        break;
-        //    //    case WidgetAnchor.TopRight:
-        //    //        x = screenBounds.Width - form.Width - Common.AppConfig.WidgetLocation.X;
-        //    //        y = Common.AppConfig.WidgetLocation.Y;
-        //    //        break;
-        //    //    case WidgetAnchor.BottomRight:
-        //    //        x = screenBounds.Width - form.Width - Common.AppConfig.WidgetLocation.X;
-        //    //        y = screenBounds.Height - form.Height - Common.AppConfig.WidgetLocation.Y;
-        //    //        break;
-        //    //    case WidgetAnchor.BottomLeft:
-        //    //        x = Common.AppConfig.WidgetLocation.X;
-        //    //        y = screenBounds.Height - form.Height - Common.AppConfig.WidgetLocation.Y;
-        //    //        break;
-        //    //    default:
-        //    //        x = y = 0;
-        //    //        break;
-        //    //}
-
-        //    //Point point = Screen.AllScreens[index].Bounds.Location;
-        //    //point.X += x;
-        //    //point.Y += y;
-
-        //    //form.StartPosition = FormStartPosition.Manual;
-        //    //form.Location = point;
-        //    //form.Show();
-        //    //}
-        //}
-
-        public static int GetScreenId(this Form form)
+        public static void CreateShortcut(string directory)
         {
-            return Screen.AllScreens.ToList().IndexOf(Screen.FromControl(form)) + 1;
+            FileInfo fiExe = new FileInfo(ExeFilename);
+
+            string appName, lnkName, lnkFullPath;
+            appName = Path.GetFileNameWithoutExtension(new FileInfo(ExeFilename).Name);
+            lnkName = $"{appName}.lnk";
+            lnkFullPath = Path.Combine(Common.UserShellStartupDirectory, lnkName);
+
+            var shell = new IWshRuntimeLibrary.WshShell();
+            var shortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut(lnkFullPath);
+            shortcut.TargetPath = fiExe.FullName;
+            shortcut.Arguments = "";
+            shortcut.WorkingDirectory = fiExe.DirectoryName;
+            shortcut.Save();
+        }
+
+        public static void DeleteShortcut(string directory)
+        {
+            FileInfo fiExe = new FileInfo(ExeFilename);
+
+            string appName, lnkName, lnkFullPath;
+            appName = Path.GetFileNameWithoutExtension(new FileInfo(ExeFilename).Name);
+            lnkName = $"{appName}.lnk";
+            lnkFullPath = Path.Combine(Common.UserShellStartupDirectory, lnkName);
+
+            File.Delete(lnkFullPath);
         }
     }
 }
