@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -337,6 +338,27 @@ namespace Sidera.Utilities.Clock
                     }
                     else
                     {
+                        string[] themes = new string[cbxAppearance_Theme_Name.Items.Count - 1];
+                        for (int i = 0; i < themes.Length; i++)
+                        {
+                            themes[i] = cbxAppearance_Theme_Name.Items[i + 1].ToString();
+                        }
+
+                        if (themes.Select(s => s.ToUpper()).Contains(name.ToUpper()))
+                        {
+                            dr = MessageBox.Show($"Do you want to overwrite the theme '{name}'?",
+                                "Overwrite theme?",
+                                MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Question);
+
+                            if (dr == DialogResult.No)
+                            {
+                                return;
+                            }
+                        }
+
+                        //
+
                         Color bezelColor, backColor, foreColor;
                         bezelColor = btnAppearance_Advanced_BezelColor.BackColor;
                         backColor = btnAppearance_Advanced_DisplayBackColor.BackColor;
@@ -435,7 +457,29 @@ namespace Sidera.Utilities.Clock
 
         private void btnHelp_Docs_Click(object sender, EventArgs e)
         {
+            Process.Start("https://github.com/sidera-enterprises/Sidera.Utilities.Clock");
+        }
 
+        private void btnHelp_Reset_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show(string.Join("\n",
+                new string[]
+                {
+                    "Are you sure you want to reset the software to factory defaults?",
+                    "",
+                    "This should only be done if you are experiencing undesirable behaviors within the software.",
+                }),
+                "Factory reset?",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+
+            if (dr == DialogResult.Yes)
+            {
+                File.Delete(Common.ConfigFilename);
+                Directory.Delete(Common.ThemesDirectory, true);
+                Common.DeleteShortcut(Common.UserShellStartupDirectory);
+                Application.Restart();
+            }
         }
 
         private void btnHelp_About_Click(object sender, EventArgs e)

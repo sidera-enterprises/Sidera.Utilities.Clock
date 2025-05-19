@@ -35,25 +35,6 @@ namespace Sidera.Utilities.Clock
         public static string UserAppDataDirectory {get { return $@"{Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Sidera", "Clock").TrimEnd('\\')}\"; } }
         public static string UserShellStartupDirectory { get { return $@"{Environment.GetFolderPath(Environment.SpecialFolder.Startup)}\"; } }
 
-        public static string ConfigFilePath
-        {
-            get
-            {
-                DirectoryInfo diProgramFiles, diProgramFilesX86;
-                diProgramFiles = new DirectoryInfo(ProgramFilesDirectory);
-                diProgramFilesX86 = new DirectoryInfo(ProgramFilesX86Directory);
-
-                FileInfo fiExe = new FileInfo(ExeFilename);
-                string exeName = Path.GetFileNameWithoutExtension(fiExe.FullName);
-
-                string baseDirectory = ExeFilename.ToUpper().StartsWith(ProgramFilesX86Directory.ToUpper()) || ExeFilename.ToUpper().StartsWith(ProgramFilesDirectory.ToUpper())
-                    ? UserAppDataDirectory
-                    : ExeFilename;
-
-                return Path.Combine(baseDirectory, $"{exeName}.Config.xml");
-            }
-        }
-
         public static string ConfigFilename
         {
             get
@@ -75,6 +56,17 @@ namespace Sidera.Utilities.Clock
                 cfgFilename = Path.Combine(baseDir, $"{exeName}.Config.xml");
 
                 return cfgFilename;
+            }
+        }
+
+        public static string ThemesDirectory
+        {
+            get
+            {
+                FileInfo fiConfig = new FileInfo(ConfigFilename);
+                string dirConfig = fiConfig.DirectoryName;
+
+                return $@"{Path.Combine(dirConfig, "themes")}\";
             }
         }
 

@@ -156,6 +156,7 @@
     <Content Include="Resources\AppIcon.ico" />
     <Content Include="Resources\Info32.png" />
     <Content Include="Resources\LifePreserver32.png" />
+    <None Include="Resources\Undo32.png" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="IWshRuntimeLibrary">
