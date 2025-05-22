@@ -1,4 +1,5 @@
-# Sidera.Utilities.Clock
+# Sidera Clock
+Version 1.0
 
 ## Introduction
 Sidera Clock is a clock widget application for your desktop. It is themable and customizable in other ways, and it can be installed on your PC or on a portable device such as a USB flash drive or external HDD/SSD drive.
