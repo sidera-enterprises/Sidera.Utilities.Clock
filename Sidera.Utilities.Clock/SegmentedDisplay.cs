@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Sidera.Utilities.Clock
 {
-    public partial class SegmentedDisplay : UserControl
+    internal partial class SegmentedDisplay : UserControl
     {
         private int _length;
         private Color _fgcolor0, _fgcolor1;

@@ -8,6 +8,8 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Management;
+using System.Net;
+using System.Net.Http;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +18,7 @@ using System.Xml.Linq;
 
 namespace Sidera.Utilities.Clock
 {
-    public partial class OptionsDialog : Form
+    internal partial class OptionsDialog : Form
     {
         public OptionsDialog()
         {
@@ -63,9 +65,9 @@ namespace Sidera.Utilities.Clock
         private string[] GetInstalledThemes()
         {
             List<string> list = new List<string>();
-            
+
             //
-            
+
             FileInfo fiExe = new FileInfo(Assembly.GetExecutingAssembly().Location);
 
             string pgmFilesDir, pgmFilesX86Dir, appDataDir, exeDir, exeName;
@@ -88,7 +90,7 @@ namespace Sidera.Utilities.Clock
                     list.Add(Path.GetFileNameWithoutExtension(fiTheme.Name));
                 }
             }
-            
+
             //
 
             return list.ToArray();
@@ -272,197 +274,274 @@ namespace Sidera.Utilities.Clock
 
         private void OptionsDialog_Load(object sender, EventArgs e)
         {
-            LoadConfig();
+            try
+            {
+                LoadConfig();
 
-            //
+                //
 
-            btnApply.Enabled = false;
+                btnApply.Enabled = false;
+            }
+            catch (Exception ex)
+            {
+                Log.Write(ex, true);
+            }
         }
 
         private void Control_ValueChanged(object sender, EventArgs e)
         {
-            btnApply.Enabled = true;
+            try
+            {
+                btnApply.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                Log.Write(ex, true);
+            }
         }
 
         private void cbxAppearance_Theme_Name_SelectedIndexChanged(object sender, EventArgs e)
         {
-            btnAppearance_Theme_Delete.Enabled = cbxAppearance_Theme_Name.SelectedIndex != 0;
-
-            //
-
-            if (cbxAppearance_Theme_Name.SelectedIndex > 0)
+            try
             {
-                string name = cbxAppearance_Theme_Name.Text;
-                ThemeConfig themeConfig = new ThemeConfig(name);
-                
-                Color bezelColor, backColor, foreColor;
-                bezelColor = themeConfig.BezelColor;
-                backColor = themeConfig.DisplayBackgroundColor;
-                foreColor = themeConfig.DisplayForegroundColor;
+                btnAppearance_Theme_Delete.Enabled = cbxAppearance_Theme_Name.SelectedIndex != 0;
 
-                btnAppearance_Advanced_BezelColor.BackColor = bezelColor;
-                btnAppearance_Advanced_DisplayBackColor.BackColor = backColor;
-                btnAppearance_Advanced_DisplayForeColor.BackColor = foreColor;
+                //
 
-                clkAppearance_Sample.BackColor = bezelColor;
-                clkAppearance_Sample.DisplayBackColor = backColor;
-                clkAppearance_Sample.DisplayOnColor = foreColor;
+                if (cbxAppearance_Theme_Name.SelectedIndex > 0)
+                {
+                    string name = cbxAppearance_Theme_Name.Text;
+                    ThemeConfig themeConfig = new ThemeConfig(name);
+
+                    Color bezelColor, backColor, foreColor;
+                    bezelColor = themeConfig.BezelColor;
+                    backColor = themeConfig.DisplayBackgroundColor;
+                    foreColor = themeConfig.DisplayForegroundColor;
+
+                    btnAppearance_Advanced_BezelColor.BackColor = bezelColor;
+                    btnAppearance_Advanced_DisplayBackColor.BackColor = backColor;
+                    btnAppearance_Advanced_DisplayForeColor.BackColor = foreColor;
+
+                    clkAppearance_Sample.BackColor = bezelColor;
+                    clkAppearance_Sample.DisplayBackColor = backColor;
+                    clkAppearance_Sample.DisplayOnColor = foreColor;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Write(ex, true);
             }
         }
 
         private void btnAppearance_Theme_Save_Click(object sender, EventArgs e)
         {
-        start:
-            bool custom = cbxAppearance_Theme_Name.SelectedIndex == 0;
-            string name = "";
-            if (custom)
+            try
             {
-                TextInputDialog textInputDialog = new TextInputDialog("Please specify a theme name:", "Save theme")
+            start:
+                bool custom = cbxAppearance_Theme_Name.SelectedIndex == 0;
+                string name = "";
+                if (custom)
                 {
-                    TopMost = this.TopMost,
-                };
-
-                DialogResult dr = textInputDialog.ShowDialog();
-                if (dr == DialogResult.OK)
-                {
-                    name = textInputDialog.Input;
-                    if (string.IsNullOrWhiteSpace(name)
-                        || name.ToUpper() == cbxAppearance_Theme_Name.Items[0].ToString().ToUpper())
+                    TextInputDialog textInputDialog = new TextInputDialog("Please specify a theme name:", "Save theme")
                     {
-                        MessageBox.Show($"Please specify a name for your theme.",
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                        TopMost = this.TopMost,
+                    };
 
-                        goto start;
-                    }
-                    else
+                    DialogResult dr = textInputDialog.ShowDialog();
+                    if (dr == DialogResult.OK)
                     {
-                        string[] themes = new string[cbxAppearance_Theme_Name.Items.Count - 1];
-                        for (int i = 0; i < themes.Length; i++)
+                        name = textInputDialog.Input;
+                        if (string.IsNullOrWhiteSpace(name)
+                            || name.ToUpper() == cbxAppearance_Theme_Name.Items[0].ToString().ToUpper())
                         {
-                            themes[i] = cbxAppearance_Theme_Name.Items[i + 1].ToString();
+                            MessageBox.Show($"Please specify a name for your theme.",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+
+                            goto start;
                         }
-
-                        if (themes.Select(s => s.ToUpper()).Contains(name.ToUpper()))
+                        else
                         {
-                            dr = MessageBox.Show($"Do you want to overwrite the theme '{name}'?",
-                                "Overwrite theme?",
-                                MessageBoxButtons.YesNo,
-                                MessageBoxIcon.Question);
-
-                            if (dr == DialogResult.No)
+                            string[] themes = new string[cbxAppearance_Theme_Name.Items.Count - 1];
+                            for (int i = 0; i < themes.Length; i++)
                             {
-                                return;
+                                themes[i] = cbxAppearance_Theme_Name.Items[i + 1].ToString();
                             }
+
+                            if (themes.Select(s => s.ToUpper()).Contains(name.ToUpper()))
+                            {
+                                dr = MessageBox.Show($"Do you want to overwrite the theme '{name}'?",
+                                    "Overwrite theme?",
+                                    MessageBoxButtons.YesNo,
+                                    MessageBoxIcon.Question);
+
+                                if (dr == DialogResult.No)
+                                {
+                                    return;
+                                }
+                            }
+
+                            //
+
+                            Color bezelColor, backColor, foreColor;
+                            bezelColor = btnAppearance_Advanced_BezelColor.BackColor;
+                            backColor = btnAppearance_Advanced_DisplayBackColor.BackColor;
+                            foreColor = btnAppearance_Advanced_DisplayForeColor.BackColor;
+
+                            ThemeConfig newTheme = new ThemeConfig(name);
+                            newTheme.BezelColor = bezelColor;
+                            newTheme.DisplayBackgroundColor = backColor;
+                            newTheme.DisplayForegroundColor = foreColor;
                         }
+                    }
+                }
+                else
+                {
+                    name = cbxAppearance_Theme_Name.Text;
+                    DialogResult dr = MessageBox.Show($"Do you want to overwrite the theme '{name}'?",
+                        "Overwrite theme?",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question);
 
-                        //
-
+                    if (dr == DialogResult.Yes)
+                    {
                         Color bezelColor, backColor, foreColor;
                         bezelColor = btnAppearance_Advanced_BezelColor.BackColor;
                         backColor = btnAppearance_Advanced_DisplayBackColor.BackColor;
                         foreColor = btnAppearance_Advanced_DisplayForeColor.BackColor;
 
-                        ThemeConfig newTheme = new ThemeConfig(name);
-                        newTheme.BezelColor = bezelColor;
-                        newTheme.DisplayBackgroundColor = backColor;
-                        newTheme.DisplayForegroundColor = foreColor;
+                        ThemeConfig themeConfig = new ThemeConfig(name);
+                        themeConfig.BezelColor = bezelColor;
+                        themeConfig.DisplayBackgroundColor = backColor;
+                        themeConfig.DisplayForegroundColor = foreColor;
                     }
                 }
+
+                RefreshThemesDropdown();
+
+                cbxAppearance_Theme_Name.Text = name;
             }
-            else
+            catch (Exception ex)
             {
-                name = cbxAppearance_Theme_Name.Text;
-                DialogResult dr = MessageBox.Show($"Do you want to overwrite the theme '{name}'?",
-                    "Overwrite theme?",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question);
-
-                if (dr == DialogResult.Yes)
-                {
-                    Color bezelColor, backColor, foreColor;
-                    bezelColor = btnAppearance_Advanced_BezelColor.BackColor;
-                    backColor = btnAppearance_Advanced_DisplayBackColor.BackColor;
-                    foreColor = btnAppearance_Advanced_DisplayForeColor.BackColor;
-
-                    ThemeConfig themeConfig = new ThemeConfig(name);
-                    themeConfig.BezelColor = bezelColor;
-                    themeConfig.DisplayBackgroundColor = backColor;
-                    themeConfig.DisplayForegroundColor = foreColor;
-                }
+                Log.Write(ex, true);
             }
-
-            RefreshThemesDropdown();
-
-            cbxAppearance_Theme_Name.Text = name;
         }
 
         private void btnAppearance_Theme_Delete_Click(object sender, EventArgs e)
         {
-            string name = cbxAppearance_Theme_Name.Text;
-            DialogResult dr = MessageBox.Show($"Are you sure you want to delete the theme '{name}'?",
-                "Delete theme?",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning);
-
-            if (dr == DialogResult.Yes)
+            try
             {
-                ThemeConfig themeConfig = new ThemeConfig(name);
-                themeConfig.Delete();
+                string name = cbxAppearance_Theme_Name.Text;
+                DialogResult dr = MessageBox.Show($"Are you sure you want to delete the theme '{name}'?",
+                    "Delete theme?",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning);
 
-                int selIndex, maxIndex;
-                selIndex = cbxAppearance_Theme_Name.SelectedIndex;
-                cbxAppearance_Theme_Name.Items.Remove(name);
-                maxIndex = cbxAppearance_Theme_Name.Items.Count - 1;
-                cbxAppearance_Theme_Name.SelectedIndex = Math.Min(selIndex, maxIndex);
+                if (dr == DialogResult.Yes)
+                {
+                    ThemeConfig themeConfig = new ThemeConfig(name);
+                    themeConfig.Delete();
+
+                    int selIndex, maxIndex;
+                    selIndex = cbxAppearance_Theme_Name.SelectedIndex;
+                    cbxAppearance_Theme_Name.Items.Remove(name);
+                    maxIndex = cbxAppearance_Theme_Name.Items.Count - 1;
+                    cbxAppearance_Theme_Name.SelectedIndex = Math.Min(selIndex, maxIndex);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Write(ex, true);
             }
         }
 
         private void btnApperance_Advanced_ElementColor_Click(object sender, EventArgs e)
         {
-            Button btnSender = sender as Button;
-
-            ColorDialog colorDialog = new ColorDialog();
-            colorDialog.Color = btnSender.BackColor;
-            DialogResult dr = colorDialog.ShowDialog();
-            if (dr == DialogResult.OK)
+            try
             {
-                btnSender.BackColor = colorDialog.Color;
-                cbxAppearance_Theme_Name.SelectedIndex = 0;
+                Button btnSender = sender as Button;
+
+                ColorDialog colorDialog = new ColorDialog();
+                colorDialog.Color = btnSender.BackColor;
+                DialogResult dr = colorDialog.ShowDialog();
+                if (dr == DialogResult.OK)
+                {
+                    btnSender.BackColor = colorDialog.Color;
+                    cbxAppearance_Theme_Name.SelectedIndex = 0;
+                }
+
+                //
+
+                clkAppearance_Sample.BackColor = btnAppearance_Advanced_BezelColor.BackColor;
+                clkAppearance_Sample.DisplayBackColor = btnAppearance_Advanced_DisplayBackColor.BackColor;
+                clkAppearance_Sample.DisplayOnColor = btnAppearance_Advanced_DisplayForeColor.BackColor;
             }
-
-            //
-
-            clkAppearance_Sample.BackColor = btnAppearance_Advanced_BezelColor.BackColor;
-            clkAppearance_Sample.DisplayBackColor = btnAppearance_Advanced_DisplayBackColor.BackColor;
-            clkAppearance_Sample.DisplayOnColor = btnAppearance_Advanced_DisplayForeColor.BackColor;
+            catch (Exception ex)
+            {
+                Log.Write(ex, true);
+            }
         }
 
         private void chkBehavior_Display_Options_CheckedChanged(object sender, EventArgs e)
         {
-            clkAppearance_Sample.FlashColon = chkBehavior_Display_FlashColon.Checked;
-            clkAppearance_Sample.ShowDate = chkBehavior_Display_ShowDate.Checked;
-            clkAppearance_Sample.Use24HourTimeFormat = chkBehavior_Display_24HourFormat.Checked;
-            clkAppearance_Sample.UseDDMMFormat = chkBehavior_Display_DDMMFormat.Checked;
-            clkAppearance_Sample.MiniClock = chkBehavior_Anchoring_MiniClock.Checked;
+            try
+            {
+                clkAppearance_Sample.FlashColon = chkBehavior_Display_FlashColon.Checked;
+                clkAppearance_Sample.ShowDate = chkBehavior_Display_ShowDate.Checked;
+                clkAppearance_Sample.Use24HourTimeFormat = chkBehavior_Display_24HourFormat.Checked;
+                clkAppearance_Sample.UseDDMMFormat = chkBehavior_Display_DDMMFormat.Checked;
+                clkAppearance_Sample.MiniClock = chkBehavior_Anchoring_MiniClock.Checked;
 
-            AnchorSampleClock();
+                AnchorSampleClock();
+            }
+            catch (Exception ex)
+            {
+                Log.Write(ex, true);
+            }
         }
 
         private void rbtnBehavior_Anchoring_CheckedChanged(object sender, EventArgs e)
         {
-            AnchorSampleClock();
+            try
+            {
+                AnchorSampleClock();
+            }
+            catch (Exception ex)
+            {
+                Log.Write(ex, true);
+            }
+        }
+
+        private void btnBehavior_Advanced_SetTime_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Process.Start("timedate.cpl");
+            }
+            catch (Exception ex)
+            {
+                Log.Write(ex, true);
+            }
         }
 
         private void btnHelp_Docs_Click(object sender, EventArgs e)
         {
-            Process.Start("https://github.com/sidera-enterprises/Sidera.Utilities.Clock");
+            try
+            {
+                Process.Start("https://github.com/sidera-enterprises/Sidera.Utilities.Clock");
+            }
+            catch (Exception ex)
+            {
+                Log.Write(ex, true);
+            }
         }
 
         private void btnHelp_Reset_Click(object sender, EventArgs e)
         {
-            DialogResult dr = MessageBox.Show(string.Join("\n",
+            try
+            {
+                DialogResult dr = MessageBox.Show(string.Join("\n",
                 new string[]
                 {
                     "Are you sure you want to reset the software to factory defaults?",
@@ -473,39 +552,84 @@ namespace Sidera.Utilities.Clock
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning);
 
-            if (dr == DialogResult.Yes)
+                if (dr == DialogResult.Yes)
+                {
+                    File.Delete(Common.ConfigFilename);
+                    Directory.Delete(Common.ThemesDirectory, true);
+                    Common.DeleteShortcut(Common.UserShellStartupDirectory);
+                    Application.Restart();
+                }
+            }
+            catch (Exception ex)
             {
-                File.Delete(Common.ConfigFilename);
-                Directory.Delete(Common.ThemesDirectory, true);
-                Common.DeleteShortcut(Common.UserShellStartupDirectory);
-                Application.Restart();
+                Log.Write(ex, true);
+            }
+        }
+
+        private void btnHelp_Update_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Process.Start("https://github.com/sidera-enterprises/Sidera.Utilities.Clock/releases");
+            }
+            catch (Exception ex)
+            {
+                Log.Write(ex, true);
             }
         }
 
         private void btnHelp_About_Click(object sender, EventArgs e)
         {
-            AboutBox aboutBox = new AboutBox();
-            aboutBox.TopMost = TopMost;
-            aboutBox.ShowDialog();
+            try
+            {
+                AboutBox aboutBox = new AboutBox();
+                aboutBox.TopMost = TopMost;
+                aboutBox.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                Log.Write(ex, true);
+            }
         }
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            btnApply.PerformClick();
-            Close();
+            try
+            {
+                btnApply.PerformClick();
+                Close();
+            }
+            catch (Exception ex)
+            {
+                Log.Write(ex, true);
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            Close();
+            try
+            {
+                Close();
+            }
+            catch (Exception ex)
+            {
+                Log.Write(ex, true);
+            }
         }
 
         private void btnApply_Click(object sender, EventArgs e)
         {
-            SaveConfig();
-            OnApplyClick();
+            try
+            {
+                SaveConfig();
+                OnApplyClick();
 
-            btnApply.Enabled = false;
+                btnApply.Enabled = false;
+            }
+            catch (Exception ex)
+            {
+                Log.Write(ex, true);
+            }
         }
 
         public event EventHandler ApplyClick;
@@ -514,6 +638,28 @@ namespace Sidera.Utilities.Clock
             var handler = ApplyClick;
             if (handler != null)
                 handler(this, new EventArgs());
+        }
+
+        private void btnHelp_ViewLog_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (File.Exists(Log.LogFilename))
+                {
+                    Process.Start(Log.LogFilename);
+                }
+                else
+                {
+                    MessageBox.Show($"A log file has not been created.",
+                        "No log file",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Write(ex, true);
+            }
         }
     }
 }

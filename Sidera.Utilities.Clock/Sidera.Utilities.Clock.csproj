@@ -58,6 +58,7 @@
     <Compile Include="AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Log.cs" />
     <Compile Include="ThemeConfig.cs" />
     <Compile Include="AppConfig.cs" />
     <Compile Include="AppEnum.cs" />
@@ -154,8 +155,11 @@
   <ItemGroup>
     <Content Include="AppIcon.ico" />
     <Content Include="Resources\AppIcon.ico" />
+    <None Include="Resources\ArrowUp32.png" />
+    <Content Include="Resources\Clock32.png" />
     <Content Include="Resources\Info32.png" />
     <Content Include="Resources\LifePreserver32.png" />
+    <None Include="Resources\Page32.png" />
     <None Include="Resources\Undo32.png" />
   </ItemGroup>
   <ItemGroup>

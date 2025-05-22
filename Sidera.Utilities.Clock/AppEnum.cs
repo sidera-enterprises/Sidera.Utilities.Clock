@@ -13,4 +13,11 @@ namespace Sidera.Utilities.Clock
         BottomRight = 11,
         BottomLeft = 01,
     }
+
+    internal enum LogType
+    {
+        Information = 0,
+        Warning = 1,
+        Error = 2,
+    }
 }

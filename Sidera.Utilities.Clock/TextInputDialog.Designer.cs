@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TextInputDialog));
             this.tpnlLayout = new System.Windows.Forms.TableLayoutPanel();
             this.lblPrompt = new System.Windows.Forms.Label();
             this.txtInput = new System.Windows.Forms.TextBox();
@@ -104,6 +105,7 @@
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.tpnlLayout);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "TextInputDialog";

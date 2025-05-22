@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Sidera.Utilities.Clock
 {
-    public partial class SegmentedDigit : UserControl
+    internal partial class SegmentedDigit : UserControl
     {
         private const string _LEGAL_CHARS = "0123456789-: ";
 
@@ -48,14 +48,6 @@ namespace Sidera.Utilities.Clock
             OnColor = Color.Lime;
             Value = " ";
             SegmentWeight = 10;
-        }
-
-        private void RefreshSegments()
-        {
-            foreach (var segment in _segments)
-            {
-                segment.Key.Invalidate();
-            }
         }
 
         public Color OffColor
@@ -120,52 +112,6 @@ namespace Sidera.Utilities.Clock
             }
         }
 
-        public void SetProperties(int weight, Size size)
-        {
-            tpnlGrid.SuspendLayout();
-
-            Size = size;
-            SegmentWeight = weight;
-
-            tpnlGrid.ResumeLayout();
-        }
-
-        private void SetSegmentSizes()
-        {
-            //MessageBox.Show(string.Join("\n", _segments.ToArray().Select(kvp => string.Join(" : ", kvp.Key.Name, kvp.Key.Size))));
-
-            foreach (var segment in _segments)
-            {
-                Panel pnlSegment = segment.Key;
-
-                //if (pnlSegment != pnlH2)
-                //    continue;
-
-                Size size;
-                string name = pnlSegment.Name;
-                char cOrientation = name[3];
-                switch (cOrientation)
-                {
-                    case 'H':
-                        size = new Size(0, _weight);
-                        break;
-                    case 'V':
-                        size = new Size(_weight, 0);
-                        break;
-                    default:
-                        size = new Size(_weight, _weight);
-                        break;
-                }
-
-                pnlSegment.MinimumSize
-                    = pnlSegment.MaximumSize = size;
-
-                pnlSegment.Size = size;
-
-                pnlSegment.Invalidate();
-            }
-        }
-
         private Panel[] ActivatedSegments
         {
             get
@@ -224,13 +170,62 @@ namespace Sidera.Utilities.Clock
             }
         }
 
+        private void RefreshSegments()
+        {
+            SuspendLayout();
+
+            foreach (var segment in _segments)
+            {
+                segment.Key.Invalidate();
+            }
+
+            ResumeLayout();
+        }
+
+        public void SetProperties(int weight, Size size)
+        {
+            tpnlGrid.SuspendLayout();
+
+            Size = size;
+            SegmentWeight = weight;
+
+            tpnlGrid.ResumeLayout();
+        }
+
+        private void SetSegmentSizes()
+        {
+            foreach (var segment in _segments)
+            {
+                Panel pnlSegment = segment.Key;
+
+                Size size;
+                string name = pnlSegment.Name;
+                char cOrientation = name[3];
+                switch (cOrientation)
+                {
+                    case 'H':
+                        size = new Size(0, _weight);
+                        break;
+                    case 'V':
+                        size = new Size(_weight, 0);
+                        break;
+                    default:
+                        size = new Size(_weight, _weight);
+                        break;
+                }
+
+                pnlSegment.MinimumSize
+                    = pnlSegment.MaximumSize = size;
+
+                pnlSegment.Size = size;
+
+                pnlSegment.Invalidate();
+            }
+        }
+
         private void SegmentedDigit_BackColorChanged(object sender, EventArgs e)
         {
-            //foreach (Panel panel in tpnlGrid.Controls)
-            //{
-            //    Graphics g = panel.CreateGraphics();
-            //    g.Clear(BackColor);
-            //}
+            
         }
 
         private void Segment_Paint(object sender, PaintEventArgs e)

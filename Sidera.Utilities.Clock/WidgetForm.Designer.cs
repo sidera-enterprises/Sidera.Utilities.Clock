@@ -39,6 +39,7 @@ namespace Sidera.Utilities.Clock
             this.mnuContecxt_About = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuContecxt_sep1 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuContecxt_Exit = new System.Windows.Forms.ToolStripMenuItem();
+            this.timer = new System.Windows.Forms.Timer(this.components);
             this.clockControl = new Sidera.Utilities.Clock.ClockControl();
             this.mnuContext.SuspendLayout();
             this.SuspendLayout();
@@ -74,14 +75,14 @@ namespace Sidera.Utilities.Clock
             this.mnuContecxt_Options.Name = "mnuContecxt_Options";
             this.mnuContecxt_Options.Size = new System.Drawing.Size(119, 22);
             this.mnuContecxt_Options.Text = "&Options";
-            this.mnuContecxt_Options.Click += new System.EventHandler(this.mnuContecxt_Options_Click);
+            this.mnuContecxt_Options.Click += new System.EventHandler(this.mnuContext_Options_Click);
             // 
             // mnuContecxt_About
             // 
             this.mnuContecxt_About.Name = "mnuContecxt_About";
             this.mnuContecxt_About.Size = new System.Drawing.Size(119, 22);
             this.mnuContecxt_About.Text = "&About ...";
-            this.mnuContecxt_About.Click += new System.EventHandler(this.mnuContecxt_About_Click);
+            this.mnuContecxt_About.Click += new System.EventHandler(this.mnuContext_About_Click);
             // 
             // mnuContecxt_sep1
             // 
@@ -93,7 +94,13 @@ namespace Sidera.Utilities.Clock
             this.mnuContecxt_Exit.Name = "mnuContecxt_Exit";
             this.mnuContecxt_Exit.Size = new System.Drawing.Size(119, 22);
             this.mnuContecxt_Exit.Text = "E&xit";
-            this.mnuContecxt_Exit.Click += new System.EventHandler(this.mnuContecxt_Exit_Click);
+            this.mnuContecxt_Exit.Click += new System.EventHandler(this.mnuContext_Exit_Click);
+            // 
+            // timer
+            // 
+            this.timer.Enabled = true;
+            this.timer.Interval = 1;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // clockControl
             // 
@@ -153,5 +160,6 @@ namespace Sidera.Utilities.Clock
         private ToolStripMenuItem mnuContecxt_About;
         private ToolStripSeparator mnuContecxt_sep1;
         private ToolStripMenuItem mnuContecxt_Exit;
+        private Timer timer;
     }
 }

@@ -60,6 +60,7 @@ namespace Sidera.Utilities.Clock
         }
 
         public static string ThemesDirectory
+
         {
             get
             {
@@ -68,6 +69,30 @@ namespace Sidera.Utilities.Clock
 
                 return $@"{Path.Combine(dirConfig, "themes")}\";
             }
+        }
+
+        public static void InitDefaultThemes()
+        {
+            ThemeConfig[] themes = new ThemeConfig[]
+            {
+                new ThemeConfig("Hotdog Stand") { BezelColor = Color.Red, DisplayBackgroundColor = Color.Yellow, DisplayForegroundColor = Color.Red },
+                new ThemeConfig("LCD - Black") { BezelColor = Color.Gray, DisplayBackgroundColor = Color.FromArgb(0xe0e0e0), DisplayForegroundColor = Color.Black},
+                new ThemeConfig("LCD - Blue") { BezelColor = Color.Gray, DisplayBackgroundColor = Color.FromArgb(0xe0e0e0), DisplayForegroundColor = Color.Navy },
+                new ThemeConfig("LCD - Teal") { BezelColor = Color.Gray, DisplayBackgroundColor = Color.FromArgb(0xe0e0e0), DisplayForegroundColor = Color.Teal },
+                new ThemeConfig("LCD - Purple") { BezelColor = Color.Gray, DisplayBackgroundColor = Color.FromArgb(0xe0e0e0), DisplayForegroundColor = Color.Purple },
+                new ThemeConfig("LCD - Green") { BezelColor = Color.Gray, DisplayBackgroundColor = Color.FromArgb(0xe0e0e0), DisplayForegroundColor = Color.Green },
+                new ThemeConfig("LCD - Red") { BezelColor = Color.Gray, DisplayBackgroundColor = Color.FromArgb(0xe0e0e0), DisplayForegroundColor = Color.Maroon },
+                new ThemeConfig("LCD - Olive") { BezelColor = Color.Gray, DisplayBackgroundColor = Color.FromArgb(0xe0e0e0), DisplayForegroundColor = Color.Olive },
+                new ThemeConfig("LED - Blue") { BezelColor = Color.Silver, DisplayBackgroundColor = Color.Black, DisplayForegroundColor = Color.Blue },
+                new ThemeConfig("LED - Cyan") { BezelColor = Color.Silver, DisplayBackgroundColor = Color.Black, DisplayForegroundColor = Color.Cyan },
+                new ThemeConfig("LED - Fuchsia") { BezelColor = Color.Silver, DisplayBackgroundColor = Color.Black, DisplayForegroundColor = Color.Fuchsia },
+                new ThemeConfig("LED - Green") { BezelColor = Color.Silver, DisplayBackgroundColor = Color.Black, DisplayForegroundColor = Color.Lime },
+                new ThemeConfig("LED - Red") { BezelColor = Color.Silver, DisplayBackgroundColor = Color.Black, DisplayForegroundColor = Color.Red },
+                new ThemeConfig("LED - White") { BezelColor = Color.Silver, DisplayBackgroundColor = Color.Black, DisplayForegroundColor = Color.White},
+                new ThemeConfig("LED - Yellow") { BezelColor = Color.Silver, DisplayBackgroundColor = Color.Black, DisplayForegroundColor = Color.Yellow },
+                new ThemeConfig("Mahogany") { BezelColor = Color.FromArgb(0xc04000), DisplayBackgroundColor = Color.FromArgb(0x400000), DisplayForegroundColor = Color.FromArgb(0xffe000)},
+                new ThemeConfig("Toy Clock") { BezelColor = Color.FromArgb(0x8080c0), DisplayBackgroundColor = Color.FromArgb(0xc0c060), DisplayForegroundColor = Color.Black },
+            };
         }
 
         public static Screen GetScreenFromId(int screenId)
@@ -95,30 +120,6 @@ namespace Sidera.Utilities.Clock
         public static int GetScreenId(this Form form)
         {
             return Screen.AllScreens.ToList().IndexOf(Screen.FromControl(form)) + 1;
-        }
-
-        public static void InitDefaultThemes()
-        {
-            ThemeConfig[] themes = new ThemeConfig[]
-            {
-                new ThemeConfig("Hotdog Stand") { BezelColor = Color.Red, DisplayBackgroundColor = Color.Yellow, DisplayForegroundColor = Color.Red },
-                new ThemeConfig("LCD - Black") { BezelColor = Color.Gray, DisplayBackgroundColor = Color.FromArgb(0xe0e0e0), DisplayForegroundColor = Color.Black},
-                new ThemeConfig("LCD - Blue") { BezelColor = Color.Gray, DisplayBackgroundColor = Color.FromArgb(0xe0e0e0), DisplayForegroundColor = Color.Navy },
-                new ThemeConfig("LCD - Teal") { BezelColor = Color.Gray, DisplayBackgroundColor = Color.FromArgb(0xe0e0e0), DisplayForegroundColor = Color.Teal },
-                new ThemeConfig("LCD - Purple") { BezelColor = Color.Gray, DisplayBackgroundColor = Color.FromArgb(0xe0e0e0), DisplayForegroundColor = Color.Purple },
-                new ThemeConfig("LCD - Green") { BezelColor = Color.Gray, DisplayBackgroundColor = Color.FromArgb(0xe0e0e0), DisplayForegroundColor = Color.Green },
-                new ThemeConfig("LCD - Red") { BezelColor = Color.Gray, DisplayBackgroundColor = Color.FromArgb(0xe0e0e0), DisplayForegroundColor = Color.Maroon },
-                new ThemeConfig("LCD - Olive") { BezelColor = Color.Gray, DisplayBackgroundColor = Color.FromArgb(0xe0e0e0), DisplayForegroundColor = Color.Olive },
-                new ThemeConfig("LED - Blue") { BezelColor = Color.Silver, DisplayBackgroundColor = Color.Black, DisplayForegroundColor = Color.Blue },
-                new ThemeConfig("LED - Cyan") { BezelColor = Color.Silver, DisplayBackgroundColor = Color.Black, DisplayForegroundColor = Color.Cyan },
-                new ThemeConfig("LED - Fuchsia") { BezelColor = Color.Silver, DisplayBackgroundColor = Color.Black, DisplayForegroundColor = Color.Fuchsia },
-                new ThemeConfig("LED - Green") { BezelColor = Color.Silver, DisplayBackgroundColor = Color.Black, DisplayForegroundColor = Color.Lime },
-                new ThemeConfig("LED - Red") { BezelColor = Color.Silver, DisplayBackgroundColor = Color.Black, DisplayForegroundColor = Color.Red },
-                new ThemeConfig("LED - White") { BezelColor = Color.Silver, DisplayBackgroundColor = Color.Black, DisplayForegroundColor = Color.White},
-                new ThemeConfig("LED - Yellow") { BezelColor = Color.Silver, DisplayBackgroundColor = Color.Black, DisplayForegroundColor = Color.Yellow },
-                new ThemeConfig("Mahogany") { BezelColor = Color.FromArgb(0xc04000), DisplayBackgroundColor = Color.FromArgb(0x400000), DisplayForegroundColor = Color.FromArgb(0xffe000)},
-                new ThemeConfig("Toy Clock") { BezelColor = Color.FromArgb(0x8080c0), DisplayBackgroundColor = Color.FromArgb(0xc0c060), DisplayForegroundColor = Color.Black },
-            };
         }
 
         public static void SetScreenLocation(this Form form, int screenId, int x, int y)

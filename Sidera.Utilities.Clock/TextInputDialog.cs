@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Sidera.Utilities.Clock
 {
-    public partial class TextInputDialog : Form
+    internal partial class TextInputDialog : Form
     {
         public TextInputDialog(string prompt) : this(prompt, "") { }
 

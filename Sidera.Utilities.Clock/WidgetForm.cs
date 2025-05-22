@@ -12,14 +12,13 @@ using System.IO;
 
 namespace Sidera.Utilities.Clock
 {
-    public partial class WidgetForm : Form
+    internal partial class WidgetForm : Form
     {
         private bool _closing;
-        private Point _oldPoint;
 
         private OptionsDialog _optionsDialog;
 
-        private bool _loadComplete, _windowDragging;
+        private bool _loadComplete;
 
         public WidgetForm()
         {
@@ -132,183 +131,229 @@ namespace Sidera.Utilities.Clock
 
         private void WidgetForm_Load(object sender, EventArgs e)
         {
-            LoadConfig();
-            bgwFade.RunWorkerAsync();
+            try
+            {
+                LoadConfig();
+                bgwFade.RunWorkerAsync();
+            }
+            catch (Exception ex)
+            {
+                Log.Write(ex, true);
+            }
         }
 
         private void WidgetForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            _closing = true;
+            try
+            {
+                _closing = true;
 
-            bool hidden = Opacity == 0;
-            e.Cancel = Opacity > 0;
+                bool hidden = Opacity == 0;
+                e.Cancel = Opacity > 0;
 
-            if (Opacity > 0)
-                bgwFade.RunWorkerAsync();
+                if (Opacity > 0)
+                    bgwFade.RunWorkerAsync();
+            }
+            catch (Exception ex)
+            {
+                Log.Write(ex, true);
+            }
         }
 
         private void WidgetForm_LocationChanged(object sender, EventArgs e)
         {
-            if (_loadComplete)
+            try
             {
-                int screenId = this.GetScreenId();
-                int screenIndex = screenId - 1;
-                Rectangle screenBounds = Screen.AllScreens[screenIndex].WorkingArea;
-
-                int x, y;
-                x = Left - screenBounds.X;
-                y = Top - screenBounds.Y;
-
-                //WidgetAnchor anchor = Common.AppConfig.AnchorPosition;
-                //string anchorName = anchor.ToString();
-                //if (anchorName.ToUpper().StartsWith("RIGHT"))
-                //    x = (screenBounds.Width) - Width - x;
-
-                //if (anchorName.ToUpper().StartsWith("BOTTOM"))
-                //    y = (screenBounds.Height) - Height - y;
-
-                switch (Common.AppConfig.AnchorPosition)
+                if (_loadComplete)
                 {
-                    case WidgetAnchor.TopRight:
-                        x = screenBounds.Width - Width - x;
-                        break;
-                    case WidgetAnchor.BottomRight:
-                        x = screenBounds.Width - Width - x;
-                        y = screenBounds.Height - Height - y;
-                        break;
-                    case WidgetAnchor.BottomLeft:
-                        y = screenBounds.Height - Height - y;
-                        break;
+                    int screenId = this.GetScreenId();
+                    int screenIndex = screenId - 1;
+                    Rectangle screenBounds = Screen.AllScreens[screenIndex].WorkingArea;
+
+                    int x, y;
+                    x = Left - screenBounds.X;
+                    y = Top - screenBounds.Y;
+
+                    switch (Common.AppConfig.AnchorPosition)
+                    {
+                        case WidgetAnchor.TopRight:
+                            x = screenBounds.Width - Width - x;
+                            break;
+                        case WidgetAnchor.BottomRight:
+                            x = screenBounds.Width - Width - x;
+                            y = screenBounds.Height - Height - y;
+                            break;
+                        case WidgetAnchor.BottomLeft:
+                            y = screenBounds.Height - Height - y;
+                            break;
+                    }
+
+                    Common.AppConfig.DefaultMonitor = screenId;
+                    Common.AppConfig.WidgetLocation = new Point(x, y);
                 }
-
-                Common.AppConfig.DefaultMonitor = screenId;
-                Common.AppConfig.WidgetLocation = new Point(x, y);
-
-                //clockControl.Cursor = Cursors.Default;
-
-                //int screenId = this.GetScreenId();
-                //int screenIndex = screenId - 1;
-                //Rectangle screenBounds = Screen.AllScreens[screenIndex].WorkingArea;
-
-                //int x, y;
-                //switch (Common.AppConfig.AnchorPosition)
-                //{
-                //    case WidgetAnchor.TopLeft:
-                //        x = Left;
-                //        y = Top;
-                //        break;
-                //    case WidgetAnchor.TopRight:
-                //        x = screenBounds.Width - Width - Left;
-                //        y = Top;
-                //        break;
-                //    case WidgetAnchor.BottomRight:
-                //        x = screenBounds.Width - Width - Left;
-                //        y = screenBounds.Height - Height - Left;
-                //        break;
-                //    case WidgetAnchor.BottomLeft:
-                //        x = Left;
-                //        y = screenBounds.Height - Height - Left;
-                //        break;
-                //    default:
-                //        x = y = 0;
-                //        break;
-                //}
-
-                //x -= screenBounds.X;
-                //y += screenBounds.Y;
-
-                //Common.AppConfig.DefaultMonitor = screenId;
-                //Common.AppConfig.WidgetLocation = new Point(x, y);
+            }
+            catch (Exception ex)
+            {
+                Log.Write(ex, true);
             }
         }
 
         private void bgwFade_DoWork(object sender, DoWorkEventArgs e)
         {
-            if (!_closing)
+            try
             {
-                Thread.Sleep(1000);
-
-                for (int i = 0; i <= 100; i += 4)
+                if (!_closing)
                 {
-                    Thread.Sleep(1);
-                    bgwFade.ReportProgress(i);
+                    Thread.Sleep(1000);
+
+                    for (int i = 0; i <= 100; i += 4)
+                    {
+                        Thread.Sleep(1);
+                        bgwFade.ReportProgress(i);
+                    }
+                }
+                else
+                {
+                    for (int i = 100; i >= 0; i -= 4)
+                    {
+                        Thread.Sleep(1);
+                        bgwFade.ReportProgress(i);
+                    }
                 }
             }
-            else
+            catch (Exception ex)
             {
-                for (int i = 100; i >= 0; i -= 4)
-                {
-                    Thread.Sleep(1);
-                    bgwFade.ReportProgress(i);
-                }
+                Log.Write(ex, true);
             }
         }
 
         private void bgwFade_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            Opacity = e.ProgressPercentage / 100d;
+            try
+            {
+                Opacity = e.ProgressPercentage / 100d;
 
-            if (_closing && Opacity == 0)
-                Close();
+                if (_closing && Opacity == 0)
+                    Close();
+            }
+            catch (Exception ex)
+            {
+                Log.Write(ex, true);
+            }
         }
 
         private void clockControl_OptionsClick(object sender, EventArgs e)
         {
-            if (_optionsDialog == null)
+            try
             {
-                _optionsDialog = new OptionsDialog();
-                _optionsDialog.FormClosed += (o, i) => _optionsDialog = null;
-                _optionsDialog.ApplyClick += (o, i) => LoadConfig();
-                _optionsDialog.Show();
+                if (_optionsDialog == null)
+                {
+                    _optionsDialog = new OptionsDialog();
+                    _optionsDialog.FormClosed += (o, i) => _optionsDialog = null;
+                    _optionsDialog.ApplyClick += (o, i) => LoadConfig();
+                    _optionsDialog.Show();
+                }
+                else
+                {
+                    _optionsDialog.WindowState = FormWindowState.Normal;
+                    _optionsDialog.Activate();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                _optionsDialog.WindowState = FormWindowState.Normal;
-                _optionsDialog.Activate();
+                Log.Write(ex, true);
             }
-            //DialogResult dr = optionsDialog.ShowDialog();
-            //if (dr == DialogResult.OK)
-            //{
-            //    optionsDialog.SaveConfig();
-            //    LoadConfig();
-            //}
         }
 
         private void clockControl_MouseDrag(object sender, EventArgs e)
         {
-            _windowDragging = true;
-        }
-
-        private void mnuContecxt_Options_Click(object sender, EventArgs e)
-        {
-            clockControl_OptionsClick(null, EventArgs.Empty);
-        }
-
-        private void mnuContecxt_About_Click(object sender, EventArgs e)
-        {
-            mnuContext.Enabled = false;
-
-            AboutBox aboutBox = new AboutBox();
-            aboutBox.TopMost = TopMost;
-            aboutBox.ShowInTaskbar = true;
-            aboutBox.ShowDialog();
-
-            mnuContext.Enabled = true;
-        }
-
-        private void mnuContecxt_Exit_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        private void icoTrayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            Activate();
+            try
+            {
+                // Do nothing
+            }
+            catch (Exception ex)
+            {
+                Log.Write(ex, true);
+            }
         }
 
         private void clockControl_MouseDrop(object sender, EventArgs e)
         {
-            _windowDragging = false;
+            try
+            {
+                // Do nothing
+            }
+            catch (Exception ex)
+            {
+                Log.Write(ex, true);
+            }
+        }
+
+        private void mnuContext_Options_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                clockControl_OptionsClick(null, EventArgs.Empty);
+            }
+            catch (Exception ex)
+            {
+                Log.Write(ex, true);
+            }
+        }
+
+        private void mnuContext_About_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                mnuContext.Enabled = false;
+
+                AboutBox aboutBox = new AboutBox();
+                aboutBox.TopMost = TopMost;
+                aboutBox.ShowInTaskbar = true;
+                aboutBox.ShowDialog();
+
+                mnuContext.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                Log.Write(ex, true);
+            }
+        }
+
+        private void mnuContext_Exit_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Close();
+            }
+            catch (Exception ex)
+            {
+                Log.Write(ex, true);
+            }
+        }
+
+        private void icoTrayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                Activate();
+            }
+            catch (Exception ex)
+            {
+                Log.Write(ex, true);
+            }
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                WindowState = FormWindowState.Normal;
+            }
+            catch (Exception ex)
+            {
+                Log.Write(ex, true);
+            }
         }
     }
 }

@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 namespace Sidera.Utilities.Clock
 {
-    public partial class AboutBox : Form
+    internal partial class AboutBox : Form
     {
         private Dictionary<string, string> _keywords;
 

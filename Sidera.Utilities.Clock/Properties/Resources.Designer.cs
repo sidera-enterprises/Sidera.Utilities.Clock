@@ -63,9 +63,29 @@ namespace Sidera.Utilities.Clock.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ArrowUp32 {
+            get {
+                object obj = ResourceManager.GetObject("ArrowUp32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap BadgeLogo {
             get {
                 object obj = ResourceManager.GetObject("BadgeLogo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Clock32 {
+            get {
+                object obj = ResourceManager.GetObject("Clock32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -96,6 +116,16 @@ namespace Sidera.Utilities.Clock.Properties {
         internal static System.Drawing.Bitmap LifePreserver32 {
             get {
                 object obj = ResourceManager.GetObject("LifePreserver32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Page32 {
+            get {
+                object obj = ResourceManager.GetObject("Page32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

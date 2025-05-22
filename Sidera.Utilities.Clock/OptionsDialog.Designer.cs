@@ -68,16 +68,21 @@
             this.chkBehavior_Anchoring_AlwaysOnTop = new System.Windows.Forms.CheckBox();
             this.chkBehavior_Anchoring_MiniClock = new System.Windows.Forms.CheckBox();
             this.tabHelp = new System.Windows.Forms.TabPage();
+            this.grpHelp = new System.Windows.Forms.GroupBox();
+            this.fpnlHelp = new System.Windows.Forms.FlowLayoutPanel();
             this.pnlAppearance_Sample = new System.Windows.Forms.Panel();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnApply = new System.Windows.Forms.Button();
             this.tpnlLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.grpHelp = new System.Windows.Forms.GroupBox();
-            this.fpnlHelp = new System.Windows.Forms.FlowLayoutPanel();
+            this.grpBehavior_Advanced = new System.Windows.Forms.GroupBox();
+            this.fpnlBehavior_Advanced = new System.Windows.Forms.FlowLayoutPanel();
             this.btnHelp_Docs = new System.Windows.Forms.Button();
+            this.btnHelp_ViewLog = new System.Windows.Forms.Button();
             this.btnHelp_Reset = new System.Windows.Forms.Button();
+            this.btnHelp_Update = new System.Windows.Forms.Button();
             this.btnHelp_About = new System.Windows.Forms.Button();
+            this.btnBehavior_Advanced_SetTime = new System.Windows.Forms.Button();
             this.clkAppearance_Sample = new Sidera.Utilities.Clock.ClockControl();
             this.tcpnlTabs.SuspendLayout();
             this.tabAppearance.SuspendLayout();
@@ -95,10 +100,12 @@
             this.grpBehavior_Anchoring.SuspendLayout();
             this.tpnlBehavior_Anchoring.SuspendLayout();
             this.tabHelp.SuspendLayout();
-            this.pnlAppearance_Sample.SuspendLayout();
-            this.tpnlLayout.SuspendLayout();
             this.grpHelp.SuspendLayout();
             this.fpnlHelp.SuspendLayout();
+            this.pnlAppearance_Sample.SuspendLayout();
+            this.tpnlLayout.SuspendLayout();
+            this.grpBehavior_Advanced.SuspendLayout();
+            this.fpnlBehavior_Advanced.SuspendLayout();
             this.SuspendLayout();
             // 
             // tcpnlTabs
@@ -326,9 +333,11 @@
             // 
             // tpnlBehavior
             // 
-            this.tpnlBehavior.ColumnCount = 2;
+            this.tpnlBehavior.ColumnCount = 3;
             this.tpnlBehavior.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tpnlBehavior.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tpnlBehavior.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 205F));
+            this.tpnlBehavior.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 155F));
+            this.tpnlBehavior.Controls.Add(this.grpBehavior_Advanced, 2, 0);
             this.tpnlBehavior.Controls.Add(this.grpBehavior_Miscellaneous, 0, 1);
             this.tpnlBehavior.Controls.Add(this.grpBehavior_Display, 0, 0);
             this.tpnlBehavior.Controls.Add(this.grpBehavior_Anchoring, 1, 0);
@@ -347,7 +356,7 @@
             this.grpBehavior_Miscellaneous.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpBehavior_Miscellaneous.Location = new System.Drawing.Point(3, 95);
             this.grpBehavior_Miscellaneous.Name = "grpBehavior_Miscellaneous";
-            this.grpBehavior_Miscellaneous.Size = new System.Drawing.Size(559, 87);
+            this.grpBehavior_Miscellaneous.Size = new System.Drawing.Size(399, 87);
             this.grpBehavior_Miscellaneous.TabIndex = 1;
             this.grpBehavior_Miscellaneous.TabStop = false;
             this.grpBehavior_Miscellaneous.Text = "Miscellaneous";
@@ -359,7 +368,7 @@
             this.fpnlBehavior_Miscellaneous.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fpnlBehavior_Miscellaneous.Location = new System.Drawing.Point(3, 16);
             this.fpnlBehavior_Miscellaneous.Name = "fpnlBehavior_Miscellaneous";
-            this.fpnlBehavior_Miscellaneous.Size = new System.Drawing.Size(553, 68);
+            this.fpnlBehavior_Miscellaneous.Size = new System.Drawing.Size(393, 68);
             this.fpnlBehavior_Miscellaneous.TabIndex = 0;
             // 
             // chkBehavior_Miscellaneous_AutoStart
@@ -379,7 +388,7 @@
             this.grpBehavior_Display.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpBehavior_Display.Location = new System.Drawing.Point(3, 3);
             this.grpBehavior_Display.Name = "grpBehavior_Display";
-            this.grpBehavior_Display.Size = new System.Drawing.Size(559, 86);
+            this.grpBehavior_Display.Size = new System.Drawing.Size(399, 86);
             this.grpBehavior_Display.TabIndex = 0;
             this.grpBehavior_Display.TabStop = false;
             this.grpBehavior_Display.Text = "Display options";
@@ -394,7 +403,7 @@
             this.fpnlBehavior_Display.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fpnlBehavior_Display.Location = new System.Drawing.Point(3, 16);
             this.fpnlBehavior_Display.Name = "fpnlBehavior_Display";
-            this.fpnlBehavior_Display.Size = new System.Drawing.Size(553, 67);
+            this.fpnlBehavior_Display.Size = new System.Drawing.Size(393, 67);
             this.fpnlBehavior_Display.TabIndex = 0;
             // 
             // chkBehavior_Display_24HourFormat
@@ -449,10 +458,10 @@
             // 
             this.grpBehavior_Anchoring.Controls.Add(this.tpnlBehavior_Anchoring);
             this.grpBehavior_Anchoring.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpBehavior_Anchoring.Location = new System.Drawing.Point(568, 3);
+            this.grpBehavior_Anchoring.Location = new System.Drawing.Point(408, 3);
             this.grpBehavior_Anchoring.Name = "grpBehavior_Anchoring";
             this.tpnlBehavior.SetRowSpan(this.grpBehavior_Anchoring, 2);
-            this.grpBehavior_Anchoring.Size = new System.Drawing.Size(194, 179);
+            this.grpBehavior_Anchoring.Size = new System.Drawing.Size(199, 179);
             this.grpBehavior_Anchoring.TabIndex = 2;
             this.grpBehavior_Anchoring.TabStop = false;
             this.grpBehavior_Anchoring.Text = "Anchoring && positioning";
@@ -481,7 +490,7 @@
             this.tpnlBehavior_Anchoring.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tpnlBehavior_Anchoring.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tpnlBehavior_Anchoring.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tpnlBehavior_Anchoring.Size = new System.Drawing.Size(188, 160);
+            this.tpnlBehavior_Anchoring.Size = new System.Drawing.Size(193, 160);
             this.tpnlBehavior_Anchoring.TabIndex = 0;
             // 
             // rbtnBehavior_Anchoring_NW
@@ -490,7 +499,7 @@
             this.rbtnBehavior_Anchoring_NW.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rbtnBehavior_Anchoring_NW.Location = new System.Drawing.Point(3, 3);
             this.rbtnBehavior_Anchoring_NW.Name = "rbtnBehavior_Anchoring_NW";
-            this.rbtnBehavior_Anchoring_NW.Size = new System.Drawing.Size(88, 26);
+            this.rbtnBehavior_Anchoring_NW.Size = new System.Drawing.Size(90, 26);
             this.rbtnBehavior_Anchoring_NW.TabIndex = 0;
             this.rbtnBehavior_Anchoring_NW.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtnBehavior_Anchoring_NW.UseVisualStyleBackColor = true;
@@ -501,9 +510,9 @@
             this.rbtnBehavior_Anchoring_NE.Appearance = System.Windows.Forms.Appearance.Button;
             this.rbtnBehavior_Anchoring_NE.Checked = true;
             this.rbtnBehavior_Anchoring_NE.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rbtnBehavior_Anchoring_NE.Location = new System.Drawing.Point(97, 3);
+            this.rbtnBehavior_Anchoring_NE.Location = new System.Drawing.Point(99, 3);
             this.rbtnBehavior_Anchoring_NE.Name = "rbtnBehavior_Anchoring_NE";
-            this.rbtnBehavior_Anchoring_NE.Size = new System.Drawing.Size(88, 26);
+            this.rbtnBehavior_Anchoring_NE.Size = new System.Drawing.Size(91, 26);
             this.rbtnBehavior_Anchoring_NE.TabIndex = 1;
             this.rbtnBehavior_Anchoring_NE.TabStop = true;
             this.rbtnBehavior_Anchoring_NE.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -516,7 +525,7 @@
             this.rbtnBehavior_Anchoring_SW.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rbtnBehavior_Anchoring_SW.Location = new System.Drawing.Point(3, 35);
             this.rbtnBehavior_Anchoring_SW.Name = "rbtnBehavior_Anchoring_SW";
-            this.rbtnBehavior_Anchoring_SW.Size = new System.Drawing.Size(88, 26);
+            this.rbtnBehavior_Anchoring_SW.Size = new System.Drawing.Size(90, 26);
             this.rbtnBehavior_Anchoring_SW.TabIndex = 2;
             this.rbtnBehavior_Anchoring_SW.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtnBehavior_Anchoring_SW.UseVisualStyleBackColor = true;
@@ -526,9 +535,9 @@
             // 
             this.rbtnBehavior_Anchoring_SE.Appearance = System.Windows.Forms.Appearance.Button;
             this.rbtnBehavior_Anchoring_SE.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rbtnBehavior_Anchoring_SE.Location = new System.Drawing.Point(97, 35);
+            this.rbtnBehavior_Anchoring_SE.Location = new System.Drawing.Point(99, 35);
             this.rbtnBehavior_Anchoring_SE.Name = "rbtnBehavior_Anchoring_SE";
-            this.rbtnBehavior_Anchoring_SE.Size = new System.Drawing.Size(88, 26);
+            this.rbtnBehavior_Anchoring_SE.Size = new System.Drawing.Size(91, 26);
             this.rbtnBehavior_Anchoring_SE.TabIndex = 3;
             this.rbtnBehavior_Anchoring_SE.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtnBehavior_Anchoring_SE.UseVisualStyleBackColor = true;
@@ -544,7 +553,7 @@
             "(Default Monitor)"});
             this.cbxBehavior_Anchoring_Monitor.Location = new System.Drawing.Point(3, 67);
             this.cbxBehavior_Anchoring_Monitor.Name = "cbxBehavior_Anchoring_Monitor";
-            this.cbxBehavior_Anchoring_Monitor.Size = new System.Drawing.Size(182, 21);
+            this.cbxBehavior_Anchoring_Monitor.Size = new System.Drawing.Size(187, 21);
             this.cbxBehavior_Anchoring_Monitor.TabIndex = 4;
             // 
             // chkBehavior_Anchoring_Lock
@@ -593,6 +602,31 @@
             this.tabHelp.TabIndex = 4;
             this.tabHelp.Text = "Help";
             this.tabHelp.UseVisualStyleBackColor = true;
+            // 
+            // grpHelp
+            // 
+            this.grpHelp.Controls.Add(this.fpnlHelp);
+            this.grpHelp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpHelp.Location = new System.Drawing.Point(3, 3);
+            this.grpHelp.Name = "grpHelp";
+            this.grpHelp.Size = new System.Drawing.Size(759, 179);
+            this.grpHelp.TabIndex = 0;
+            this.grpHelp.TabStop = false;
+            this.grpHelp.Text = "Software help";
+            // 
+            // fpnlHelp
+            // 
+            this.fpnlHelp.Controls.Add(this.btnHelp_Docs);
+            this.fpnlHelp.Controls.Add(this.btnHelp_ViewLog);
+            this.fpnlHelp.Controls.Add(this.btnHelp_Reset);
+            this.fpnlHelp.Controls.Add(this.btnHelp_Update);
+            this.fpnlHelp.Controls.Add(this.btnHelp_About);
+            this.fpnlHelp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fpnlHelp.Location = new System.Drawing.Point(3, 16);
+            this.fpnlHelp.Name = "fpnlHelp";
+            this.fpnlHelp.Padding = new System.Windows.Forms.Padding(6);
+            this.fpnlHelp.Size = new System.Drawing.Size(753, 160);
+            this.fpnlHelp.TabIndex = 0;
             // 
             // pnlAppearance_Sample
             // 
@@ -659,28 +693,27 @@
             this.tpnlLayout.Size = new System.Drawing.Size(779, 717);
             this.tpnlLayout.TabIndex = 4;
             // 
-            // grpHelp
+            // grpBehavior_Advanced
             // 
-            this.grpHelp.Controls.Add(this.fpnlHelp);
-            this.grpHelp.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpHelp.Location = new System.Drawing.Point(3, 3);
-            this.grpHelp.Name = "grpHelp";
-            this.grpHelp.Size = new System.Drawing.Size(759, 179);
-            this.grpHelp.TabIndex = 0;
-            this.grpHelp.TabStop = false;
-            this.grpHelp.Text = "Software help";
+            this.grpBehavior_Advanced.Controls.Add(this.fpnlBehavior_Advanced);
+            this.grpBehavior_Advanced.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpBehavior_Advanced.Location = new System.Drawing.Point(613, 3);
+            this.grpBehavior_Advanced.Name = "grpBehavior_Advanced";
+            this.tpnlBehavior.SetRowSpan(this.grpBehavior_Advanced, 2);
+            this.grpBehavior_Advanced.Size = new System.Drawing.Size(149, 179);
+            this.grpBehavior_Advanced.TabIndex = 3;
+            this.grpBehavior_Advanced.TabStop = false;
+            this.grpBehavior_Advanced.Text = "Advanced";
             // 
-            // fpnlHelp
+            // fpnlBehavior_Advanced
             // 
-            this.fpnlHelp.Controls.Add(this.btnHelp_Docs);
-            this.fpnlHelp.Controls.Add(this.btnHelp_Reset);
-            this.fpnlHelp.Controls.Add(this.btnHelp_About);
-            this.fpnlHelp.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fpnlHelp.Location = new System.Drawing.Point(3, 16);
-            this.fpnlHelp.Name = "fpnlHelp";
-            this.fpnlHelp.Padding = new System.Windows.Forms.Padding(6);
-            this.fpnlHelp.Size = new System.Drawing.Size(753, 160);
-            this.fpnlHelp.TabIndex = 0;
+            this.fpnlBehavior_Advanced.Controls.Add(this.btnBehavior_Advanced_SetTime);
+            this.fpnlBehavior_Advanced.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fpnlBehavior_Advanced.Location = new System.Drawing.Point(3, 16);
+            this.fpnlBehavior_Advanced.Name = "fpnlBehavior_Advanced";
+            this.fpnlBehavior_Advanced.Padding = new System.Windows.Forms.Padding(6);
+            this.fpnlBehavior_Advanced.Size = new System.Drawing.Size(143, 160);
+            this.fpnlBehavior_Advanced.TabIndex = 0;
             // 
             // btnHelp_Docs
             // 
@@ -691,38 +724,80 @@
             this.btnHelp_Docs.Name = "btnHelp_Docs";
             this.btnHelp_Docs.Size = new System.Drawing.Size(120, 136);
             this.btnHelp_Docs.TabIndex = 0;
-            this.btnHelp_Docs.Text = "Website";
+            this.btnHelp_Docs.Text = "\r\nWebsite";
             this.btnHelp_Docs.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnHelp_Docs.UseVisualStyleBackColor = true;
             this.btnHelp_Docs.Click += new System.EventHandler(this.btnHelp_Docs_Click);
+            // 
+            // btnHelp_ViewLog
+            // 
+            this.btnHelp_ViewLog.Image = global::Sidera.Utilities.Clock.Properties.Resources.Page32;
+            this.btnHelp_ViewLog.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnHelp_ViewLog.Location = new System.Drawing.Point(144, 12);
+            this.btnHelp_ViewLog.Margin = new System.Windows.Forms.Padding(6);
+            this.btnHelp_ViewLog.Name = "btnHelp_ViewLog";
+            this.btnHelp_ViewLog.Size = new System.Drawing.Size(120, 136);
+            this.btnHelp_ViewLog.TabIndex = 0;
+            this.btnHelp_ViewLog.Text = "\r\nView Log";
+            this.btnHelp_ViewLog.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnHelp_ViewLog.UseVisualStyleBackColor = true;
+            this.btnHelp_ViewLog.Click += new System.EventHandler(this.btnHelp_ViewLog_Click);
             // 
             // btnHelp_Reset
             // 
             this.btnHelp_Reset.Image = global::Sidera.Utilities.Clock.Properties.Resources.Undo32;
             this.btnHelp_Reset.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnHelp_Reset.Location = new System.Drawing.Point(144, 12);
+            this.btnHelp_Reset.Location = new System.Drawing.Point(276, 12);
             this.btnHelp_Reset.Margin = new System.Windows.Forms.Padding(6);
             this.btnHelp_Reset.Name = "btnHelp_Reset";
             this.btnHelp_Reset.Size = new System.Drawing.Size(120, 136);
             this.btnHelp_Reset.TabIndex = 0;
-            this.btnHelp_Reset.Text = "Factory Reset";
+            this.btnHelp_Reset.Text = "\r\nFactory Reset";
             this.btnHelp_Reset.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnHelp_Reset.UseVisualStyleBackColor = true;
             this.btnHelp_Reset.Click += new System.EventHandler(this.btnHelp_Reset_Click);
+            // 
+            // btnHelp_Update
+            // 
+            this.btnHelp_Update.Image = global::Sidera.Utilities.Clock.Properties.Resources.ArrowUp32;
+            this.btnHelp_Update.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnHelp_Update.Location = new System.Drawing.Point(408, 12);
+            this.btnHelp_Update.Margin = new System.Windows.Forms.Padding(6);
+            this.btnHelp_Update.Name = "btnHelp_Update";
+            this.btnHelp_Update.Size = new System.Drawing.Size(120, 136);
+            this.btnHelp_Update.TabIndex = 0;
+            this.btnHelp_Update.Text = "\r\nCheck for Updates";
+            this.btnHelp_Update.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnHelp_Update.UseVisualStyleBackColor = true;
+            this.btnHelp_Update.Click += new System.EventHandler(this.btnHelp_Update_Click);
             // 
             // btnHelp_About
             // 
             this.btnHelp_About.Image = global::Sidera.Utilities.Clock.Properties.Resources.Info32;
             this.btnHelp_About.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnHelp_About.Location = new System.Drawing.Point(276, 12);
+            this.btnHelp_About.Location = new System.Drawing.Point(540, 12);
             this.btnHelp_About.Margin = new System.Windows.Forms.Padding(6);
             this.btnHelp_About.Name = "btnHelp_About";
             this.btnHelp_About.Size = new System.Drawing.Size(120, 136);
             this.btnHelp_About.TabIndex = 0;
-            this.btnHelp_About.Text = "About Clock";
+            this.btnHelp_About.Text = "\r\nAbout Clock";
             this.btnHelp_About.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnHelp_About.UseVisualStyleBackColor = true;
             this.btnHelp_About.Click += new System.EventHandler(this.btnHelp_About_Click);
+            // 
+            // btnBehavior_Advanced_SetTime
+            // 
+            this.btnBehavior_Advanced_SetTime.Image = global::Sidera.Utilities.Clock.Properties.Resources.Clock32;
+            this.btnBehavior_Advanced_SetTime.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnBehavior_Advanced_SetTime.Location = new System.Drawing.Point(12, 12);
+            this.btnBehavior_Advanced_SetTime.Margin = new System.Windows.Forms.Padding(6);
+            this.btnBehavior_Advanced_SetTime.Name = "btnBehavior_Advanced_SetTime";
+            this.btnBehavior_Advanced_SetTime.Size = new System.Drawing.Size(120, 136);
+            this.btnBehavior_Advanced_SetTime.TabIndex = 0;
+            this.btnBehavior_Advanced_SetTime.Text = "\r\nSet System Time";
+            this.btnBehavior_Advanced_SetTime.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnBehavior_Advanced_SetTime.UseVisualStyleBackColor = true;
+            this.btnBehavior_Advanced_SetTime.Click += new System.EventHandler(this.btnBehavior_Advanced_SetTime_Click);
             // 
             // clkAppearance_Sample
             // 
@@ -784,11 +859,13 @@
             this.tpnlBehavior_Anchoring.ResumeLayout(false);
             this.tpnlBehavior_Anchoring.PerformLayout();
             this.tabHelp.ResumeLayout(false);
+            this.grpHelp.ResumeLayout(false);
+            this.fpnlHelp.ResumeLayout(false);
             this.pnlAppearance_Sample.ResumeLayout(false);
             this.pnlAppearance_Sample.PerformLayout();
             this.tpnlLayout.ResumeLayout(false);
-            this.grpHelp.ResumeLayout(false);
-            this.fpnlHelp.ResumeLayout(false);
+            this.grpBehavior_Advanced.ResumeLayout(false);
+            this.fpnlBehavior_Advanced.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -845,5 +922,10 @@
         private System.Windows.Forms.Button btnHelp_Docs;
         private System.Windows.Forms.Button btnHelp_Reset;
         private System.Windows.Forms.Button btnHelp_About;
+        private System.Windows.Forms.Button btnHelp_ViewLog;
+        private System.Windows.Forms.Button btnHelp_Update;
+        private System.Windows.Forms.GroupBox grpBehavior_Advanced;
+        private System.Windows.Forms.FlowLayoutPanel fpnlBehavior_Advanced;
+        private System.Windows.Forms.Button btnBehavior_Advanced_SetTime;
     }
 }
