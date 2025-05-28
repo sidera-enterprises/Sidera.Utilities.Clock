@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             this.tpnlLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.segmentedDisplay = new Sidera.Utilities.Clock.SegmentedDisplay();
             this.pnlBadge = new System.Windows.Forms.Panel();
             this.timer = new System.Windows.Forms.Timer(this.components);
+            this.segmentedDisplay = new Sidera.Utilities.Clock.SegmentedDisplay();
             this.tpnlLayout.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,27 +54,12 @@
             this.tpnlLayout.RowCount = 2;
             this.tpnlLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tpnlLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tpnlLayout.Size = new System.Drawing.Size(520, 241);
+            this.tpnlLayout.Size = new System.Drawing.Size(394, 196);
             this.tpnlLayout.TabIndex = 1;
-            // 
-            // segmentedDisplay
-            // 
-            this.segmentedDisplay.AutoSize = true;
-            this.segmentedDisplay.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.segmentedDisplay.BackColor = System.Drawing.Color.Black;
-            this.tpnlLayout.SetColumnSpan(this.segmentedDisplay, 5);
-            this.segmentedDisplay.Length = 5;
-            this.segmentedDisplay.Location = new System.Drawing.Point(0, 0);
-            this.segmentedDisplay.Margin = new System.Windows.Forms.Padding(0, 0, 0, 12);
-            this.segmentedDisplay.Name = "segmentedDisplay";
-            this.segmentedDisplay.OffColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.segmentedDisplay.OnColor = System.Drawing.Color.Red;
-            this.segmentedDisplay.Size = new System.Drawing.Size(519, 193);
-            this.segmentedDisplay.TabIndex = 0;
             // 
             // pnlBadge
             // 
-            this.pnlBadge.Location = new System.Drawing.Point(185, 208);
+            this.pnlBadge.Location = new System.Drawing.Point(122, 163);
             this.pnlBadge.Name = "pnlBadge";
             this.pnlBadge.Padding = new System.Windows.Forms.Padding(3);
             this.pnlBadge.Size = new System.Drawing.Size(150, 30);
@@ -90,6 +75,21 @@
             this.timer.Interval = 1;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
+            // segmentedDisplay
+            // 
+            this.segmentedDisplay.AutoSize = true;
+            this.segmentedDisplay.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.segmentedDisplay.BackColor = System.Drawing.Color.Black;
+            this.tpnlLayout.SetColumnSpan(this.segmentedDisplay, 5);
+            this.segmentedDisplay.Length = 5;
+            this.segmentedDisplay.Location = new System.Drawing.Point(0, 0);
+            this.segmentedDisplay.Margin = new System.Windows.Forms.Padding(0, 0, 0, 12);
+            this.segmentedDisplay.Name = "segmentedDisplay";
+            this.segmentedDisplay.OffColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.segmentedDisplay.OnColor = System.Drawing.Color.Red;
+            this.segmentedDisplay.Size = new System.Drawing.Size(394, 148);
+            this.segmentedDisplay.TabIndex = 0;
+            // 
             // ClockControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -99,9 +99,9 @@
             this.BackColor = System.Drawing.Color.Silver;
             this.Controls.Add(this.tpnlLayout);
             this.Name = "ClockControl";
-            this.Size = new System.Drawing.Size(544, 265);
+            this.Size = new System.Drawing.Size(418, 220);
             this.Load += new System.EventHandler(this.ClockControl_Load);
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.WidgetForm_Paint);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.ClockControl_Paint);
             this.tpnlLayout.ResumeLayout(false);
             this.tpnlLayout.PerformLayout();
             this.ResumeLayout(false);

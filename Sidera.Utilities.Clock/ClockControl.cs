@@ -158,7 +158,7 @@ namespace Sidera.Utilities.Clock
             }
         }
 
-        private void WidgetForm_Paint(object sender, PaintEventArgs e)
+        private void ClockControl_Paint(object sender, PaintEventArgs e)
         {
             try
             {
@@ -167,17 +167,17 @@ namespace Sidera.Utilities.Clock
                 penLight = new Pen(Color.FromArgb(128, Color.White), 2);
                 penDark = new Pen(Color.FromArgb(128, Color.Black), 2);
 
-                Rectangle rect1, rect2, rect3;
-                rect1 = new Rectangle(new Point(0, 0),
+                Rectangle rectBezel_Border, rectBezel_Light, rectBezel_Dark;
+                rectBezel_Border = new Rectangle(new Point(0, 0),
                     new Size(Width - 1, Height - 1));
-                rect2 = new Rectangle(new Point(rect1.X + 1, rect1.Y + 1),
-                    new Size(rect1.Width, rect1.Height));
-                rect3 = new Rectangle(new Point(rect2.X - 1, rect2.Y - 1),
-                    new Size(rect2.Width, rect2.Height));
+                rectBezel_Light = new Rectangle(new Point(rectBezel_Border.X + 1, rectBezel_Border.Y + 1),
+                    new Size(rectBezel_Border.Width, rectBezel_Border.Height));
+                rectBezel_Dark = new Rectangle(new Point(rectBezel_Light.X - 1, rectBezel_Light.Y - 1),
+                    new Size(rectBezel_Light.Width, rectBezel_Light.Height));
 
-                e.Graphics.DrawRectangle(penBlack, rect1);
-                e.Graphics.DrawRectangle(penLight, rect2);
-                e.Graphics.DrawRectangle(penDark, rect3);
+                e.Graphics.DrawRectangle(penBlack, rectBezel_Border);
+                e.Graphics.DrawRectangle(penLight, rectBezel_Light);
+                e.Graphics.DrawRectangle(penDark, rectBezel_Dark);
             }
             catch (Exception ex)
             {

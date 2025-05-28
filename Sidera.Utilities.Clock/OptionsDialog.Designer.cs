@@ -35,9 +35,9 @@
             this.grpAppearance_Theme = new System.Windows.Forms.GroupBox();
             this.tpnlAppearance_Theme = new System.Windows.Forms.TableLayoutPanel();
             this.lblAppearance_Theme_Name = new System.Windows.Forms.Label();
-            this.cbxAppearance_Theme_Name = new System.Windows.Forms.ComboBox();
             this.btnAppearance_Theme_Save = new System.Windows.Forms.Button();
             this.btnAppearance_Theme_Delete = new System.Windows.Forms.Button();
+            this.lbxAppearance_Theme_Name = new System.Windows.Forms.ListBox();
             this.grpAppearance_Advanced = new System.Windows.Forms.GroupBox();
             this.tpnlAppearance_Advanced = new System.Windows.Forms.TableLayoutPanel();
             this.lblAppearance_Advanced_BezelColor = new System.Windows.Forms.Label();
@@ -48,6 +48,9 @@
             this.btnAppearance_Advanced_DisplayForeColor = new System.Windows.Forms.Button();
             this.tabBehavior = new System.Windows.Forms.TabPage();
             this.tpnlBehavior = new System.Windows.Forms.TableLayoutPanel();
+            this.grpBehavior_Advanced = new System.Windows.Forms.GroupBox();
+            this.fpnlBehavior_Advanced = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnBehavior_Advanced_SetTime = new System.Windows.Forms.Button();
             this.grpBehavior_Miscellaneous = new System.Windows.Forms.GroupBox();
             this.fpnlBehavior_Miscellaneous = new System.Windows.Forms.FlowLayoutPanel();
             this.chkBehavior_Miscellaneous_AutoStart = new System.Windows.Forms.CheckBox();
@@ -70,19 +73,16 @@
             this.tabHelp = new System.Windows.Forms.TabPage();
             this.grpHelp = new System.Windows.Forms.GroupBox();
             this.fpnlHelp = new System.Windows.Forms.FlowLayoutPanel();
-            this.pnlAppearance_Sample = new System.Windows.Forms.Panel();
-            this.btnOK = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.btnApply = new System.Windows.Forms.Button();
-            this.tpnlLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.grpBehavior_Advanced = new System.Windows.Forms.GroupBox();
-            this.fpnlBehavior_Advanced = new System.Windows.Forms.FlowLayoutPanel();
             this.btnHelp_Docs = new System.Windows.Forms.Button();
             this.btnHelp_ViewLog = new System.Windows.Forms.Button();
             this.btnHelp_Reset = new System.Windows.Forms.Button();
             this.btnHelp_Update = new System.Windows.Forms.Button();
             this.btnHelp_About = new System.Windows.Forms.Button();
-            this.btnBehavior_Advanced_SetTime = new System.Windows.Forms.Button();
+            this.pnlAppearance_Sample = new System.Windows.Forms.Panel();
+            this.btnOK = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnApply = new System.Windows.Forms.Button();
+            this.tpnlLayout = new System.Windows.Forms.TableLayoutPanel();
             this.clkAppearance_Sample = new Sidera.Utilities.Clock.ClockControl();
             this.tcpnlTabs.SuspendLayout();
             this.tabAppearance.SuspendLayout();
@@ -93,6 +93,8 @@
             this.tpnlAppearance_Advanced.SuspendLayout();
             this.tabBehavior.SuspendLayout();
             this.tpnlBehavior.SuspendLayout();
+            this.grpBehavior_Advanced.SuspendLayout();
+            this.fpnlBehavior_Advanced.SuspendLayout();
             this.grpBehavior_Miscellaneous.SuspendLayout();
             this.fpnlBehavior_Miscellaneous.SuspendLayout();
             this.grpBehavior_Display.SuspendLayout();
@@ -104,8 +106,6 @@
             this.fpnlHelp.SuspendLayout();
             this.pnlAppearance_Sample.SuspendLayout();
             this.tpnlLayout.SuspendLayout();
-            this.grpBehavior_Advanced.SuspendLayout();
-            this.fpnlBehavior_Advanced.SuspendLayout();
             this.SuspendLayout();
             // 
             // tcpnlTabs
@@ -164,16 +164,16 @@
             this.tpnlAppearance_Theme.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tpnlAppearance_Theme.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tpnlAppearance_Theme.Controls.Add(this.lblAppearance_Theme_Name, 0, 0);
-            this.tpnlAppearance_Theme.Controls.Add(this.cbxAppearance_Theme_Name, 1, 0);
-            this.tpnlAppearance_Theme.Controls.Add(this.btnAppearance_Theme_Save, 1, 1);
-            this.tpnlAppearance_Theme.Controls.Add(this.btnAppearance_Theme_Delete, 2, 1);
+            this.tpnlAppearance_Theme.Controls.Add(this.btnAppearance_Theme_Save, 1, 2);
+            this.tpnlAppearance_Theme.Controls.Add(this.btnAppearance_Theme_Delete, 2, 2);
+            this.tpnlAppearance_Theme.Controls.Add(this.lbxAppearance_Theme_Name, 1, 0);
             this.tpnlAppearance_Theme.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tpnlAppearance_Theme.Location = new System.Drawing.Point(3, 16);
             this.tpnlAppearance_Theme.Name = "tpnlAppearance_Theme";
             this.tpnlAppearance_Theme.RowCount = 3;
             this.tpnlAppearance_Theme.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tpnlAppearance_Theme.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tpnlAppearance_Theme.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tpnlAppearance_Theme.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tpnlAppearance_Theme.Size = new System.Drawing.Size(513, 160);
             this.tpnlAppearance_Theme.TabIndex = 0;
             // 
@@ -181,29 +181,16 @@
             // 
             this.lblAppearance_Theme_Name.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblAppearance_Theme_Name.AutoSize = true;
-            this.lblAppearance_Theme_Name.Location = new System.Drawing.Point(3, 7);
+            this.lblAppearance_Theme_Name.Location = new System.Drawing.Point(3, 6);
+            this.lblAppearance_Theme_Name.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
             this.lblAppearance_Theme_Name.Name = "lblAppearance_Theme_Name";
             this.lblAppearance_Theme_Name.Size = new System.Drawing.Size(35, 13);
             this.lblAppearance_Theme_Name.TabIndex = 0;
             this.lblAppearance_Theme_Name.Text = "Name";
             // 
-            // cbxAppearance_Theme_Name
-            // 
-            this.tpnlAppearance_Theme.SetColumnSpan(this.cbxAppearance_Theme_Name, 3);
-            this.cbxAppearance_Theme_Name.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cbxAppearance_Theme_Name.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxAppearance_Theme_Name.FormattingEnabled = true;
-            this.cbxAppearance_Theme_Name.Items.AddRange(new object[] {
-            "(Custom)"});
-            this.cbxAppearance_Theme_Name.Location = new System.Drawing.Point(44, 3);
-            this.cbxAppearance_Theme_Name.Name = "cbxAppearance_Theme_Name";
-            this.cbxAppearance_Theme_Name.Size = new System.Drawing.Size(466, 21);
-            this.cbxAppearance_Theme_Name.TabIndex = 1;
-            this.cbxAppearance_Theme_Name.SelectedIndexChanged += new System.EventHandler(this.cbxAppearance_Theme_Name_SelectedIndexChanged);
-            // 
             // btnAppearance_Theme_Save
             // 
-            this.btnAppearance_Theme_Save.Location = new System.Drawing.Point(44, 30);
+            this.btnAppearance_Theme_Save.Location = new System.Drawing.Point(44, 134);
             this.btnAppearance_Theme_Save.Name = "btnAppearance_Theme_Save";
             this.btnAppearance_Theme_Save.Size = new System.Drawing.Size(75, 23);
             this.btnAppearance_Theme_Save.TabIndex = 2;
@@ -214,13 +201,29 @@
             // btnAppearance_Theme_Delete
             // 
             this.btnAppearance_Theme_Delete.Enabled = false;
-            this.btnAppearance_Theme_Delete.Location = new System.Drawing.Point(125, 30);
+            this.btnAppearance_Theme_Delete.Location = new System.Drawing.Point(125, 134);
             this.btnAppearance_Theme_Delete.Name = "btnAppearance_Theme_Delete";
             this.btnAppearance_Theme_Delete.Size = new System.Drawing.Size(75, 23);
             this.btnAppearance_Theme_Delete.TabIndex = 3;
             this.btnAppearance_Theme_Delete.Text = "&Delete";
             this.btnAppearance_Theme_Delete.UseVisualStyleBackColor = true;
             this.btnAppearance_Theme_Delete.Click += new System.EventHandler(this.btnAppearance_Theme_Delete_Click);
+            // 
+            // lbxAppearance_Theme_Name
+            // 
+            this.tpnlAppearance_Theme.SetColumnSpan(this.lbxAppearance_Theme_Name, 3);
+            this.lbxAppearance_Theme_Name.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbxAppearance_Theme_Name.FormattingEnabled = true;
+            this.lbxAppearance_Theme_Name.Items.AddRange(new object[] {
+            "(Custom)"});
+            this.lbxAppearance_Theme_Name.Location = new System.Drawing.Point(44, 3);
+            this.lbxAppearance_Theme_Name.Name = "lbxAppearance_Theme_Name";
+            this.tpnlAppearance_Theme.SetRowSpan(this.lbxAppearance_Theme_Name, 2);
+            this.lbxAppearance_Theme_Name.ScrollAlwaysVisible = true;
+            this.lbxAppearance_Theme_Name.Size = new System.Drawing.Size(466, 125);
+            this.lbxAppearance_Theme_Name.Sorted = true;
+            this.lbxAppearance_Theme_Name.TabIndex = 4;
+            this.lbxAppearance_Theme_Name.SelectedIndexChanged += new System.EventHandler(this.lbxAppearance_Theme_Name_SelectedIndexChanged);
             // 
             // grpAppearance_Advanced
             // 
@@ -251,7 +254,7 @@
             this.tpnlAppearance_Advanced.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tpnlAppearance_Advanced.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tpnlAppearance_Advanced.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tpnlAppearance_Advanced.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tpnlAppearance_Advanced.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tpnlAppearance_Advanced.Size = new System.Drawing.Size(228, 160);
             this.tpnlAppearance_Advanced.TabIndex = 0;
             // 
@@ -350,6 +353,42 @@
             this.tpnlBehavior.Size = new System.Drawing.Size(765, 185);
             this.tpnlBehavior.TabIndex = 1;
             // 
+            // grpBehavior_Advanced
+            // 
+            this.grpBehavior_Advanced.Controls.Add(this.fpnlBehavior_Advanced);
+            this.grpBehavior_Advanced.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpBehavior_Advanced.Location = new System.Drawing.Point(613, 3);
+            this.grpBehavior_Advanced.Name = "grpBehavior_Advanced";
+            this.tpnlBehavior.SetRowSpan(this.grpBehavior_Advanced, 2);
+            this.grpBehavior_Advanced.Size = new System.Drawing.Size(149, 179);
+            this.grpBehavior_Advanced.TabIndex = 3;
+            this.grpBehavior_Advanced.TabStop = false;
+            this.grpBehavior_Advanced.Text = "Advanced";
+            // 
+            // fpnlBehavior_Advanced
+            // 
+            this.fpnlBehavior_Advanced.Controls.Add(this.btnBehavior_Advanced_SetTime);
+            this.fpnlBehavior_Advanced.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fpnlBehavior_Advanced.Location = new System.Drawing.Point(3, 16);
+            this.fpnlBehavior_Advanced.Name = "fpnlBehavior_Advanced";
+            this.fpnlBehavior_Advanced.Padding = new System.Windows.Forms.Padding(6);
+            this.fpnlBehavior_Advanced.Size = new System.Drawing.Size(143, 160);
+            this.fpnlBehavior_Advanced.TabIndex = 0;
+            // 
+            // btnBehavior_Advanced_SetTime
+            // 
+            this.btnBehavior_Advanced_SetTime.Image = global::Sidera.Utilities.Clock.Properties.Resources.Clock32;
+            this.btnBehavior_Advanced_SetTime.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnBehavior_Advanced_SetTime.Location = new System.Drawing.Point(12, 12);
+            this.btnBehavior_Advanced_SetTime.Margin = new System.Windows.Forms.Padding(6);
+            this.btnBehavior_Advanced_SetTime.Name = "btnBehavior_Advanced_SetTime";
+            this.btnBehavior_Advanced_SetTime.Size = new System.Drawing.Size(120, 136);
+            this.btnBehavior_Advanced_SetTime.TabIndex = 0;
+            this.btnBehavior_Advanced_SetTime.Text = "\r\nSet System Time";
+            this.btnBehavior_Advanced_SetTime.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnBehavior_Advanced_SetTime.UseVisualStyleBackColor = true;
+            this.btnBehavior_Advanced_SetTime.Click += new System.EventHandler(this.btnBehavior_Advanced_SetTime_Click);
+            // 
             // grpBehavior_Miscellaneous
             // 
             this.grpBehavior_Miscellaneous.Controls.Add(this.fpnlBehavior_Miscellaneous);
@@ -431,8 +470,6 @@
             // chkBehavior_Display_FlashColon
             // 
             this.chkBehavior_Display_FlashColon.AutoSize = true;
-            this.chkBehavior_Display_FlashColon.Checked = true;
-            this.chkBehavior_Display_FlashColon.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkBehavior_Display_FlashColon.Location = new System.Drawing.Point(160, 3);
             this.chkBehavior_Display_FlashColon.Name = "chkBehavior_Display_FlashColon";
             this.chkBehavior_Display_FlashColon.Size = new System.Drawing.Size(127, 17);
@@ -444,8 +481,6 @@
             // chkBehavior_Display_ShowDate
             // 
             this.chkBehavior_Display_ShowDate.AutoSize = true;
-            this.chkBehavior_Display_ShowDate.Checked = true;
-            this.chkBehavior_Display_ShowDate.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkBehavior_Display_ShowDate.Location = new System.Drawing.Point(160, 26);
             this.chkBehavior_Display_ShowDate.Name = "chkBehavior_Display_ShowDate";
             this.chkBehavior_Display_ShowDate.Size = new System.Drawing.Size(163, 17);
@@ -508,13 +543,11 @@
             // rbtnBehavior_Anchoring_NE
             // 
             this.rbtnBehavior_Anchoring_NE.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtnBehavior_Anchoring_NE.Checked = true;
             this.rbtnBehavior_Anchoring_NE.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rbtnBehavior_Anchoring_NE.Location = new System.Drawing.Point(99, 3);
             this.rbtnBehavior_Anchoring_NE.Name = "rbtnBehavior_Anchoring_NE";
             this.rbtnBehavior_Anchoring_NE.Size = new System.Drawing.Size(91, 26);
             this.rbtnBehavior_Anchoring_NE.TabIndex = 1;
-            this.rbtnBehavior_Anchoring_NE.TabStop = true;
             this.rbtnBehavior_Anchoring_NE.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtnBehavior_Anchoring_NE.UseVisualStyleBackColor = true;
             this.rbtnBehavior_Anchoring_NE.CheckedChanged += new System.EventHandler(this.rbtnBehavior_Anchoring_CheckedChanged);
@@ -628,93 +661,6 @@
             this.fpnlHelp.Size = new System.Drawing.Size(753, 160);
             this.fpnlHelp.TabIndex = 0;
             // 
-            // pnlAppearance_Sample
-            // 
-            this.pnlAppearance_Sample.BackColor = System.Drawing.Color.Teal;
-            this.pnlAppearance_Sample.Controls.Add(this.clkAppearance_Sample);
-            this.pnlAppearance_Sample.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlAppearance_Sample.Location = new System.Drawing.Point(0, 0);
-            this.pnlAppearance_Sample.Margin = new System.Windows.Forms.Padding(0);
-            this.pnlAppearance_Sample.Name = "pnlAppearance_Sample";
-            this.pnlAppearance_Sample.Size = new System.Drawing.Size(779, 500);
-            this.pnlAppearance_Sample.TabIndex = 0;
-            // 
-            // btnOK
-            // 
-            this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(535, 726);
-            this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(75, 23);
-            this.btnOK.TabIndex = 1;
-            this.btnOK.Text = "OK";
-            this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(616, 726);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 2;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
-            // btnApply
-            // 
-            this.btnApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnApply.Enabled = false;
-            this.btnApply.Location = new System.Drawing.Point(697, 726);
-            this.btnApply.Name = "btnApply";
-            this.btnApply.Size = new System.Drawing.Size(75, 23);
-            this.btnApply.TabIndex = 3;
-            this.btnApply.Text = "Apply";
-            this.btnApply.UseVisualStyleBackColor = true;
-            this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
-            // 
-            // tpnlLayout
-            // 
-            this.tpnlLayout.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tpnlLayout.ColumnCount = 1;
-            this.tpnlLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tpnlLayout.Controls.Add(this.pnlAppearance_Sample, 0, 0);
-            this.tpnlLayout.Controls.Add(this.tcpnlTabs, 0, 1);
-            this.tpnlLayout.Location = new System.Drawing.Point(3, 3);
-            this.tpnlLayout.Margin = new System.Windows.Forms.Padding(0);
-            this.tpnlLayout.Name = "tpnlLayout";
-            this.tpnlLayout.RowCount = 2;
-            this.tpnlLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 500F));
-            this.tpnlLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tpnlLayout.Size = new System.Drawing.Size(779, 717);
-            this.tpnlLayout.TabIndex = 4;
-            // 
-            // grpBehavior_Advanced
-            // 
-            this.grpBehavior_Advanced.Controls.Add(this.fpnlBehavior_Advanced);
-            this.grpBehavior_Advanced.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpBehavior_Advanced.Location = new System.Drawing.Point(613, 3);
-            this.grpBehavior_Advanced.Name = "grpBehavior_Advanced";
-            this.tpnlBehavior.SetRowSpan(this.grpBehavior_Advanced, 2);
-            this.grpBehavior_Advanced.Size = new System.Drawing.Size(149, 179);
-            this.grpBehavior_Advanced.TabIndex = 3;
-            this.grpBehavior_Advanced.TabStop = false;
-            this.grpBehavior_Advanced.Text = "Advanced";
-            // 
-            // fpnlBehavior_Advanced
-            // 
-            this.fpnlBehavior_Advanced.Controls.Add(this.btnBehavior_Advanced_SetTime);
-            this.fpnlBehavior_Advanced.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fpnlBehavior_Advanced.Location = new System.Drawing.Point(3, 16);
-            this.fpnlBehavior_Advanced.Name = "fpnlBehavior_Advanced";
-            this.fpnlBehavior_Advanced.Padding = new System.Windows.Forms.Padding(6);
-            this.fpnlBehavior_Advanced.Size = new System.Drawing.Size(143, 160);
-            this.fpnlBehavior_Advanced.TabIndex = 0;
-            // 
             // btnHelp_Docs
             // 
             this.btnHelp_Docs.Image = global::Sidera.Utilities.Clock.Properties.Resources.LifePreserver32;
@@ -785,19 +731,70 @@
             this.btnHelp_About.UseVisualStyleBackColor = true;
             this.btnHelp_About.Click += new System.EventHandler(this.btnHelp_About_Click);
             // 
-            // btnBehavior_Advanced_SetTime
+            // pnlAppearance_Sample
             // 
-            this.btnBehavior_Advanced_SetTime.Image = global::Sidera.Utilities.Clock.Properties.Resources.Clock32;
-            this.btnBehavior_Advanced_SetTime.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnBehavior_Advanced_SetTime.Location = new System.Drawing.Point(12, 12);
-            this.btnBehavior_Advanced_SetTime.Margin = new System.Windows.Forms.Padding(6);
-            this.btnBehavior_Advanced_SetTime.Name = "btnBehavior_Advanced_SetTime";
-            this.btnBehavior_Advanced_SetTime.Size = new System.Drawing.Size(120, 136);
-            this.btnBehavior_Advanced_SetTime.TabIndex = 0;
-            this.btnBehavior_Advanced_SetTime.Text = "\r\nSet System Time";
-            this.btnBehavior_Advanced_SetTime.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnBehavior_Advanced_SetTime.UseVisualStyleBackColor = true;
-            this.btnBehavior_Advanced_SetTime.Click += new System.EventHandler(this.btnBehavior_Advanced_SetTime_Click);
+            this.pnlAppearance_Sample.BackColor = System.Drawing.Color.Teal;
+            this.pnlAppearance_Sample.Controls.Add(this.clkAppearance_Sample);
+            this.pnlAppearance_Sample.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlAppearance_Sample.Location = new System.Drawing.Point(0, 0);
+            this.pnlAppearance_Sample.Margin = new System.Windows.Forms.Padding(0);
+            this.pnlAppearance_Sample.Name = "pnlAppearance_Sample";
+            this.pnlAppearance_Sample.Size = new System.Drawing.Size(779, 500);
+            this.pnlAppearance_Sample.TabIndex = 0;
+            // 
+            // btnOK
+            // 
+            this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnOK.Location = new System.Drawing.Point(535, 726);
+            this.btnOK.Name = "btnOK";
+            this.btnOK.Size = new System.Drawing.Size(75, 23);
+            this.btnOK.TabIndex = 1;
+            this.btnOK.Text = "OK";
+            this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancel.Location = new System.Drawing.Point(616, 726);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 2;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // btnApply
+            // 
+            this.btnApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnApply.Enabled = false;
+            this.btnApply.Location = new System.Drawing.Point(697, 726);
+            this.btnApply.Name = "btnApply";
+            this.btnApply.Size = new System.Drawing.Size(75, 23);
+            this.btnApply.TabIndex = 3;
+            this.btnApply.Text = "Apply";
+            this.btnApply.UseVisualStyleBackColor = true;
+            this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
+            // 
+            // tpnlLayout
+            // 
+            this.tpnlLayout.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tpnlLayout.ColumnCount = 1;
+            this.tpnlLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tpnlLayout.Controls.Add(this.pnlAppearance_Sample, 0, 0);
+            this.tpnlLayout.Controls.Add(this.tcpnlTabs, 0, 1);
+            this.tpnlLayout.Location = new System.Drawing.Point(3, 3);
+            this.tpnlLayout.Margin = new System.Windows.Forms.Padding(0);
+            this.tpnlLayout.Name = "tpnlLayout";
+            this.tpnlLayout.RowCount = 2;
+            this.tpnlLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 500F));
+            this.tpnlLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tpnlLayout.Size = new System.Drawing.Size(779, 717);
+            this.tpnlLayout.TabIndex = 4;
             // 
             // clkAppearance_Sample
             // 
@@ -849,6 +846,8 @@
             this.tpnlAppearance_Advanced.PerformLayout();
             this.tabBehavior.ResumeLayout(false);
             this.tpnlBehavior.ResumeLayout(false);
+            this.grpBehavior_Advanced.ResumeLayout(false);
+            this.fpnlBehavior_Advanced.ResumeLayout(false);
             this.grpBehavior_Miscellaneous.ResumeLayout(false);
             this.fpnlBehavior_Miscellaneous.ResumeLayout(false);
             this.fpnlBehavior_Miscellaneous.PerformLayout();
@@ -864,8 +863,6 @@
             this.pnlAppearance_Sample.ResumeLayout(false);
             this.pnlAppearance_Sample.PerformLayout();
             this.tpnlLayout.ResumeLayout(false);
-            this.grpBehavior_Advanced.ResumeLayout(false);
-            this.fpnlBehavior_Advanced.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -907,7 +904,6 @@
         private System.Windows.Forms.TableLayoutPanel tpnlAppearance_Theme;
         private System.Windows.Forms.GroupBox grpAppearance_Advanced;
         private System.Windows.Forms.Label lblAppearance_Theme_Name;
-        private System.Windows.Forms.ComboBox cbxAppearance_Theme_Name;
         private System.Windows.Forms.Button btnAppearance_Theme_Save;
         private System.Windows.Forms.Button btnAppearance_Theme_Delete;
         private System.Windows.Forms.CheckBox chkBehavior_Anchoring_AlwaysOnTop;
@@ -927,5 +923,6 @@
         private System.Windows.Forms.GroupBox grpBehavior_Advanced;
         private System.Windows.Forms.FlowLayoutPanel fpnlBehavior_Advanced;
         private System.Windows.Forms.Button btnBehavior_Advanced_SetTime;
+        private System.Windows.Forms.ListBox lbxAppearance_Theme_Name;
     }
 }

@@ -42,7 +42,7 @@ namespace Sidera.Utilities.Clock
                 pnlAppearance_Sample.BackgroundImage = wallpaper;
                 pnlAppearance_Sample.BackgroundImageLayout = ImageLayout.Stretch;
             }
-            cbxAppearance_Theme_Name.SelectedIndex = 0;
+            lbxAppearance_Theme_Name.SelectedIndex = 0;
             cbxBehavior_Anchoring_Monitor.SelectedIndex = 0;
         }
 
@@ -98,20 +98,20 @@ namespace Sidera.Utilities.Clock
 
         private void RefreshThemesDropdown()
         {
-            int selIndex = cbxAppearance_Theme_Name.SelectedIndex;
-            cbxAppearance_Theme_Name.Items.Clear();
-            cbxAppearance_Theme_Name.Items.Add("(Custom)");
+            int selIndex = lbxAppearance_Theme_Name.SelectedIndex;
+            lbxAppearance_Theme_Name.Items.Clear();
+            lbxAppearance_Theme_Name.Items.Add("(Custom)");
             foreach (string s in GetInstalledThemes())
             {
-                cbxAppearance_Theme_Name.Items.Add(s);
+                lbxAppearance_Theme_Name.Items.Add(s);
             }
 
-            cbxAppearance_Theme_Name.SelectedIndex = selIndex;
+            lbxAppearance_Theme_Name.SelectedIndex = selIndex;
         }
 
         private void InitApplyButtonEnablingEvents()
         {
-            cbxAppearance_Theme_Name.SelectedIndexChanged += Control_ValueChanged;
+            lbxAppearance_Theme_Name.SelectedIndexChanged += Control_ValueChanged;
             btnAppearance_Advanced_BezelColor.BackColorChanged += Control_ValueChanged;
             btnAppearance_Advanced_DisplayBackColor.BackColorChanged += Control_ValueChanged;
             btnAppearance_Advanced_DisplayForeColor.BackColorChanged += Control_ValueChanged;
@@ -175,11 +175,11 @@ namespace Sidera.Utilities.Clock
 
             if (themed)
             {
-                cbxAppearance_Theme_Name.Text = Common.AppConfig.Theme;
+                lbxAppearance_Theme_Name.Text = Common.AppConfig.Theme;
             }
             else
             {
-                cbxAppearance_Theme_Name.SelectedIndex = 0;
+                lbxAppearance_Theme_Name.SelectedIndex = 0;
             }
 
             btnAppearance_Advanced_BezelColor.BackColor = bezelColor;
@@ -226,7 +226,7 @@ namespace Sidera.Utilities.Clock
 
         public void SaveConfig()
         {
-            if (cbxAppearance_Theme_Name.SelectedIndex == 0)
+            if (lbxAppearance_Theme_Name.SelectedIndex == 0)
             {
                 Common.AppConfig.Theme = null;
                 Common.AppConfig.BezelColor = btnAppearance_Advanced_BezelColor.BackColor;
@@ -235,7 +235,7 @@ namespace Sidera.Utilities.Clock
             }
             else
             {
-                Common.AppConfig.Theme = cbxAppearance_Theme_Name.Text;
+                Common.AppConfig.Theme = lbxAppearance_Theme_Name.Text;
             }
             Common.AppConfig.FlashColon = chkBehavior_Display_FlashColon.Checked;
             Common.AppConfig.AutoRotateTimeDate = chkBehavior_Display_ShowDate.Checked;
@@ -259,7 +259,7 @@ namespace Sidera.Utilities.Clock
                 Common.AppConfig.AnchorPosition = WidgetAnchor.BottomLeft;
             }
 
-            if (!string.IsNullOrEmpty(cbxAppearance_Theme_Name.Text))
+            if (!string.IsNullOrEmpty(lbxAppearance_Theme_Name.Text))
             {
                 Common.AppConfig.DefaultMonitor = cbxBehavior_Anchoring_Monitor.SelectedIndex;
             }
@@ -300,17 +300,17 @@ namespace Sidera.Utilities.Clock
             }
         }
 
-        private void cbxAppearance_Theme_Name_SelectedIndexChanged(object sender, EventArgs e)
+        private void lbxAppearance_Theme_Name_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
-                btnAppearance_Theme_Delete.Enabled = cbxAppearance_Theme_Name.SelectedIndex != 0;
+                btnAppearance_Theme_Delete.Enabled = lbxAppearance_Theme_Name.SelectedIndex != 0;
 
                 //
 
-                if (cbxAppearance_Theme_Name.SelectedIndex > 0)
+                if (lbxAppearance_Theme_Name.SelectedIndex > 0)
                 {
-                    string name = cbxAppearance_Theme_Name.Text;
+                    string name = lbxAppearance_Theme_Name.Text;
                     ThemeConfig themeConfig = new ThemeConfig(name);
 
                     Color bezelColor, backColor, foreColor;
@@ -338,11 +338,19 @@ namespace Sidera.Utilities.Clock
             try
             {
             start:
-                bool custom = cbxAppearance_Theme_Name.SelectedIndex == 0;
+                bool custom = lbxAppearance_Theme_Name.SelectedIndex == 0;
                 string name = "";
+                string[] themes = new string[lbxAppearance_Theme_Name.Items.Count - 1];
+                for (int i = 0; i < themes.Length; i++)
+                {
+                    themes[i] = lbxAppearance_Theme_Name.Items[i + 1].ToString();
+                }
+
                 if (custom)
                 {
-                    TextInputDialog textInputDialog = new TextInputDialog("Please specify a theme name:", "Save theme")
+                    TextInputDialog textInputDialog = new TextInputDialog("Please specify a theme name:",
+                        "Save theme",
+                        themes)
                     {
                         TopMost = this.TopMost,
                     };
@@ -352,7 +360,7 @@ namespace Sidera.Utilities.Clock
                     {
                         name = textInputDialog.Input;
                         if (string.IsNullOrWhiteSpace(name)
-                            || name.ToUpper() == cbxAppearance_Theme_Name.Items[0].ToString().ToUpper())
+                            || name.ToUpper() == lbxAppearance_Theme_Name.Items[0].ToString().ToUpper())
                         {
                             MessageBox.Show($"Please specify a name for your theme.",
                                 "Error",
@@ -363,12 +371,6 @@ namespace Sidera.Utilities.Clock
                         }
                         else
                         {
-                            string[] themes = new string[cbxAppearance_Theme_Name.Items.Count - 1];
-                            for (int i = 0; i < themes.Length; i++)
-                            {
-                                themes[i] = cbxAppearance_Theme_Name.Items[i + 1].ToString();
-                            }
-
                             if (themes.Select(s => s.ToUpper()).Contains(name.ToUpper()))
                             {
                                 dr = MessageBox.Show($"Do you want to overwrite the theme '{name}'?",
@@ -398,7 +400,7 @@ namespace Sidera.Utilities.Clock
                 }
                 else
                 {
-                    name = cbxAppearance_Theme_Name.Text;
+                    name = lbxAppearance_Theme_Name.Text;
                     DialogResult dr = MessageBox.Show($"Do you want to overwrite the theme '{name}'?",
                         "Overwrite theme?",
                         MessageBoxButtons.YesNo,
@@ -420,7 +422,7 @@ namespace Sidera.Utilities.Clock
 
                 RefreshThemesDropdown();
 
-                cbxAppearance_Theme_Name.Text = name;
+                lbxAppearance_Theme_Name.Text = name;
             }
             catch (Exception ex)
             {
@@ -432,7 +434,7 @@ namespace Sidera.Utilities.Clock
         {
             try
             {
-                string name = cbxAppearance_Theme_Name.Text;
+                string name = lbxAppearance_Theme_Name.Text;
                 DialogResult dr = MessageBox.Show($"Are you sure you want to delete the theme '{name}'?",
                     "Delete theme?",
                     MessageBoxButtons.YesNo,
@@ -444,10 +446,10 @@ namespace Sidera.Utilities.Clock
                     themeConfig.Delete();
 
                     int selIndex, maxIndex;
-                    selIndex = cbxAppearance_Theme_Name.SelectedIndex;
-                    cbxAppearance_Theme_Name.Items.Remove(name);
-                    maxIndex = cbxAppearance_Theme_Name.Items.Count - 1;
-                    cbxAppearance_Theme_Name.SelectedIndex = Math.Min(selIndex, maxIndex);
+                    selIndex = lbxAppearance_Theme_Name.SelectedIndex;
+                    lbxAppearance_Theme_Name.Items.Remove(name);
+                    maxIndex = lbxAppearance_Theme_Name.Items.Count - 1;
+                    lbxAppearance_Theme_Name.SelectedIndex = Math.Min(selIndex, maxIndex);
                 }
             }
             catch (Exception ex)
@@ -468,7 +470,7 @@ namespace Sidera.Utilities.Clock
                 if (dr == DialogResult.OK)
                 {
                     btnSender.BackColor = colorDialog.Color;
-                    cbxAppearance_Theme_Name.SelectedIndex = 0;
+                    lbxAppearance_Theme_Name.SelectedIndex = 0;
                 }
 
                 //

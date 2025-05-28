@@ -12,26 +12,48 @@ namespace Sidera.Utilities.Clock
 {
     internal partial class TextInputDialog : Form
     {
-        public TextInputDialog(string prompt) : this(prompt, "") { }
+        public TextInputDialog(string prompt) : this(prompt, "", null) { }
 
-        public TextInputDialog(string prompt, string title)
+        public TextInputDialog(string prompt, string[] autoCompleteSource) : this(prompt, "", autoCompleteSource) { }
+
+        public TextInputDialog(string prompt, string title) : this(prompt, title, null) { }
+
+        public TextInputDialog(string prompt, string title, string[] autoCompleteSource)
         {
             InitializeComponent();
 
             Prompt = prompt;
             Text = title;
+            SetSuggestions(autoCompleteSource);
         }
 
         public string Prompt
         {
-            get { return lblPrompt.Text; }
-            set { lblPrompt.Text = value; }
+            get { return grpPrompt.Text; }
+            set { grpPrompt.Text = value; }
         }
 
         public string Input
         {
             get { return txtInput.Text; }
             set { txtInput.Text = value; }
+        }
+
+        public void SetSuggestions(string[] suggestions)
+        {
+            if (suggestions != null)
+            {
+                txtInput.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                txtInput.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
+                txtInput.AutoCompleteCustomSource.Clear();
+                txtInput.AutoCompleteCustomSource.AddRange(suggestions);
+            }
+        }
+
+        private void TextInputDialog_Load(object sender, EventArgs e)
+        {
+            txtInput.Focus();
         }
     }
 }

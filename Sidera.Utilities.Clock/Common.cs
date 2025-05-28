@@ -75,7 +75,15 @@ namespace Sidera.Utilities.Clock
         {
             ThemeConfig[] themes = new ThemeConfig[]
             {
+                // Colorful themes
                 new ThemeConfig("Hotdog Stand") { BezelColor = Color.Red, DisplayBackgroundColor = Color.Yellow, DisplayForegroundColor = Color.Red },
+                new ThemeConfig("I'm Blue") { BezelColor = Color.FromArgb(0x8080ff), DisplayBackgroundColor = Color.FromArgb(0x000040), DisplayForegroundColor = Color.FromArgb(0x80c0ff)},
+                new ThemeConfig("Livin' Thing") { BezelColor = Color.FromArgb(0x80c040), DisplayBackgroundColor = Color.FromArgb(0x004000), DisplayForegroundColor = Color.FromArgb(0x80ff00)},
+                new ThemeConfig("Mahogany") { BezelColor = Color.FromArgb(0xc04000), DisplayBackgroundColor = Color.FromArgb(0x400000), DisplayForegroundColor = Color.FromArgb(0xffe000)},
+                new ThemeConfig("Mojave") { BezelColor = Color.FromArgb(0xe0c080), DisplayBackgroundColor = Color.FromArgb(0x807048), DisplayForegroundColor = Color.FromArgb(0xffffe1)},
+                new ThemeConfig("Toy Clock") { BezelColor = Color.FromArgb(0x8080c0), DisplayBackgroundColor = Color.FromArgb(0xc0c060), DisplayForegroundColor = Color.Black },
+                
+                // LCD themes
                 new ThemeConfig("LCD - Black") { BezelColor = Color.Gray, DisplayBackgroundColor = Color.FromArgb(0xe0e0e0), DisplayForegroundColor = Color.Black},
                 new ThemeConfig("LCD - Blue") { BezelColor = Color.Gray, DisplayBackgroundColor = Color.FromArgb(0xe0e0e0), DisplayForegroundColor = Color.Navy },
                 new ThemeConfig("LCD - Teal") { BezelColor = Color.Gray, DisplayBackgroundColor = Color.FromArgb(0xe0e0e0), DisplayForegroundColor = Color.Teal },
@@ -83,6 +91,8 @@ namespace Sidera.Utilities.Clock
                 new ThemeConfig("LCD - Green") { BezelColor = Color.Gray, DisplayBackgroundColor = Color.FromArgb(0xe0e0e0), DisplayForegroundColor = Color.Green },
                 new ThemeConfig("LCD - Red") { BezelColor = Color.Gray, DisplayBackgroundColor = Color.FromArgb(0xe0e0e0), DisplayForegroundColor = Color.Maroon },
                 new ThemeConfig("LCD - Olive") { BezelColor = Color.Gray, DisplayBackgroundColor = Color.FromArgb(0xe0e0e0), DisplayForegroundColor = Color.Olive },
+                
+                // LED themes
                 new ThemeConfig("LED - Blue") { BezelColor = Color.Silver, DisplayBackgroundColor = Color.Black, DisplayForegroundColor = Color.Blue },
                 new ThemeConfig("LED - Cyan") { BezelColor = Color.Silver, DisplayBackgroundColor = Color.Black, DisplayForegroundColor = Color.Cyan },
                 new ThemeConfig("LED - Fuchsia") { BezelColor = Color.Silver, DisplayBackgroundColor = Color.Black, DisplayForegroundColor = Color.Fuchsia },
@@ -90,8 +100,6 @@ namespace Sidera.Utilities.Clock
                 new ThemeConfig("LED - Red") { BezelColor = Color.Silver, DisplayBackgroundColor = Color.Black, DisplayForegroundColor = Color.Red },
                 new ThemeConfig("LED - White") { BezelColor = Color.Silver, DisplayBackgroundColor = Color.Black, DisplayForegroundColor = Color.White},
                 new ThemeConfig("LED - Yellow") { BezelColor = Color.Silver, DisplayBackgroundColor = Color.Black, DisplayForegroundColor = Color.Yellow },
-                new ThemeConfig("Mahogany") { BezelColor = Color.FromArgb(0xc04000), DisplayBackgroundColor = Color.FromArgb(0x400000), DisplayForegroundColor = Color.FromArgb(0xffe000)},
-                new ThemeConfig("Toy Clock") { BezelColor = Color.FromArgb(0x8080c0), DisplayBackgroundColor = Color.FromArgb(0xc0c060), DisplayForegroundColor = Color.Black },
             };
         }
 
@@ -157,9 +165,9 @@ namespace Sidera.Utilities.Clock
             FileInfo fiExe = new FileInfo(ExeFilename);
 
             string appName, lnkName, lnkFullPath;
-            appName = Path.GetFileNameWithoutExtension(new FileInfo(ExeFilename).Name);
+            appName = Path.GetFileNameWithoutExtension(fiExe.Name);
             lnkName = $"{appName}.lnk";
-            lnkFullPath = Path.Combine(Common.UserShellStartupDirectory, lnkName);
+            lnkFullPath = Path.Combine(UserShellStartupDirectory, lnkName);
 
             File.Delete(lnkFullPath);
         }
